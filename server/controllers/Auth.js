@@ -242,7 +242,7 @@ exports.login = async(req, res) => {
 
             }
             // - password comparison with db
-            const user = await User.findOne({email})
+            const user = await User.findOne({email:email})
             if(!bcrypt.compare(oldPassword,user.password)){
                 return res.status(401).json({
                     success:false,
@@ -253,7 +253,7 @@ exports.login = async(req, res) => {
             // hashing of password and Update the db
             const hasedPassowrd = bcrypt.hash(newPassword,10)
             try{
-                const updatedUser = await User.findOneAndUpdate({email},
+                const updatedUser = await User.findOneAndUpdate({email:email},
                     {password:hasedPassowrd},
                     {new:true})
 
