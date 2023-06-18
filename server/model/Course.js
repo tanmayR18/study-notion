@@ -21,10 +21,12 @@ const courseSchema = new mongoose.Schema({
             ref: "Section"
         }
     ],
-    ratingAndReviews: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "RatingAndReview",
-    },
+    ratingAndReviews: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "RatingAndReview",
+        }
+    ],
     price: {
         type: Number
     },
@@ -35,11 +37,13 @@ const courseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tag",
     },
-    studentEnrolled: {
-        type: mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:"User"
-    }
+    studentEnrolled: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required:true,
+            ref:"User"
+        }
+    ]
 })
 
 module.exports = mongoose.model("Course",courseSchema)
