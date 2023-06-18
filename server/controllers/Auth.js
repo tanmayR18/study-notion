@@ -4,6 +4,7 @@ const Profile = require('../model/Profile')
 const otpGenerator = require('otp-generator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const mailSender = require('../utils/mailSender')
 require('dotenv').config()
 
 
@@ -162,6 +163,121 @@ exports.signUp = async(req,res) => {
 
 
 //LogIn
+exports.login = async(req, res) => {
+    try{
+        //get data from the body
+        const {email, password} = req.body;
+        if(!email || !password){
+            return res.status(403). json({
+                success:false,
+                message:'All fields are required, please try again',
+            });
+        }
+
+        //user check exit or not
+        const user = await User.findOne({email}).populate("additionalDetails")
+        if(!user){
+            return res.status(401).json({
+                success:false,
+                message:"User is not registrered, please signup first",
+            });
+        }
+
+        //generate JWT, after password matching
+        if(await bcrypt.compare(password, user.password)) {
+            const payload = {
+                email: user.email,
+                id: user._id,
+                accountType: user.accountType
+            }
+            const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                expiresIn:"2h"
+            })
+            user.token = token
+            user.password = undefined
+
+            //create cookie and send response
+            const options = {
+                expires: new Date(Date.now() + 3*24*60*60*1000),
+                httpOnly: true,
+            }
+            res.cookie("token",token,options).status(200).json({
+                success:true,
+                token,
+                user,
+                message:'Loged in successfully'
+            })
+
+        } else {
+            return res.status(401).json({
+                success:false,
+                message:'Password is incorrect',
+            });
+        }
+
+    } catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:'Login Failure, please try again',
+        });
+    }
+}
 
 
 //Resent Password
+
+    exports.changePassword = async(req,res) => {
+        try{
+            // fetch data from the body
+            const {email, oldPassword, confirmPassword, newPassword} = req.body;
+            
+            //match the password 
+            // - password entered by the user
+            if(newPassword !== confirmPassword){
+                return res.status(401).json({
+                    success:false,
+                    message: 'Enter the correct New and Confirm password properly'
+                })
+
+            }
+            // - password comparison with db
+            const user = await User.findOne({email})
+            if(!bcrypt.compare(oldPassword,user.password)){
+                return res.status(401).json({
+                    success:false,
+                    message: 'Enter the correct Old Password'
+                })
+            }
+ 
+            // hashing of password and Update the db
+            const hasedPassowrd = bcrypt.hash(newPassword,10)
+            try{
+                const updatedUser = await User.findOneAndUpdate({email},
+                    {password:hasedPassowrd},
+                    {new:true})
+
+                await mailSender(email, "Password Updated", <p> Your password for Study Notion has been updated, if it wasn't you then contact us</p> )
+
+                return res.status(200).json({
+                    success:true,
+                    message:"Password updated successfully",
+                    updatedUser
+                })
+
+            } catch( error) {
+                console.log(error);
+                return res.status(500).json({
+                success:false,
+                message:'Failed to update the new Password in DB',
+                });
+            }
+            
+        } catch( error ){
+            console.log(error);
+            return res.status(500).json({
+                success:false,
+                message:'Unable to change the password, please try again',
+            });
+        }
+    }
