@@ -225,7 +225,8 @@ exports.login = async(req, res) => {
 }
 
 
-//Resent Password
+//change Password
+//TODO: Home work
 
     exports.changePassword = async(req,res) => {
         try{
