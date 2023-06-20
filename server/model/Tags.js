@@ -8,10 +8,11 @@ const tagsSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    course: {
+    //check wether course should be an array of courses id
+    course: [{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Course",
-    }
+    }]
 })
 
 module.exports = mongoose.model("Tag",tagsSchema)
