@@ -91,3 +91,24 @@ exports.createCourse = async(req, res) => {
     }
 }
 
+//getAll courses 
+
+exports.showAllCourses = async (req, res) => {
+    try{
+        //TODO: change the below statement incrementally
+        const allCourses = await Course.find({});
+         
+        return res.status(200).json({
+            success:true,
+                message:'Data for all courses fetched successfully',
+                data:allCourses,
+        })
+    } catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:'Cannot Fetch course data',
+            error:error.message,
+        })
+    }
+}
