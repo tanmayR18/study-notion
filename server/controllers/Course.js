@@ -1,5 +1,5 @@
 const Course = require('../model/Course')
-const Tag = require('../model/Tags')
+const Category = require('../model/Category')
 const User = require('../model/User')
 const {uploadImageToCloudinary} = require('../utils/imageUploader')
 
@@ -8,13 +8,13 @@ const {uploadImageToCloudinary} = require('../utils/imageUploader')
 exports.createCourse = async(req, res) => {
     try{
         //fetch data 
-        const {courseName, courseDescription, whatYoutWillLearn, price, tag} = req.body
+        const {courseName, courseDescription, whatYoutWillLearn, price, category} = req.body
 
         //get thumbnail
         const thumbnail = req.files.thumbnailImage;
 
         //validation
-        if(!courseName || !courseDescription || !whatYoutWillLearn || !price || !tag || !thumbnail) {
+        if(!courseName || !courseDescription || !whatYoutWillLearn || !price || !category || !thumbnail) {
             return res.status(400).json({
                 success:false,
                 message:'All fields are required',
@@ -34,12 +34,12 @@ exports.createCourse = async(req, res) => {
             });
         }
 
-        //check given tag is valid or not
-        const tagDetails = await Tag.findById(tag)
-        if(!tagDetails) {
+        //check given category is valid or not
+        const categoryDetails = await Category.findById(category)
+        if(!categoryDetails) {
             return res.status(404).json({
                 success:false,
-                message:'Tag Details not found',
+                message:'Category Details not found',
             });
         }
 
@@ -53,7 +53,7 @@ exports.createCourse = async(req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYoutWillLearn,
             price,
-            tag:tagDetails._id,
+            category:categoryDetails._id,
             thumbnail:thumbnailImage.secure_url,
         })
 
@@ -68,11 +68,11 @@ exports.createCourse = async(req, res) => {
             {new:true}
         )
 
-        //update the tag schema
+        //update the category schema
         //TODO: HW
-        //check whether there should me aarays of courses in tag
-        await Tag.findOneAndUpdate(
-            {name:tagDetails.name},
+        //check whether there should me aarays of courses in category
+        await Category.findOneAndUpdate(
+            {name:categoryDetails.name},
             {
                 $push: {
                     course: newCourse.id
