@@ -58,7 +58,7 @@ exports.updateSubSection = async(req, res) => {
         const video  = req.files.videoFile;
         //validation
         if(!subSectionId || !title || !timeDuration || !description || !video) {
-            return res.status(400).json({
+            return res.status(401).json({
                 success:false,
                 message:'All fields are required',
             });
@@ -77,7 +77,7 @@ exports.updateSubSection = async(req, res) => {
         //update subsection
         console.log("Updated Subsection", updatedSubSection)
 
-        return res.status(400).json({
+        return res.status(200).json({
             succcess:true,
             message:"Sub Section updated successfully",
             updatedSubSection
