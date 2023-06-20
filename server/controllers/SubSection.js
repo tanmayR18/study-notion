@@ -90,3 +90,39 @@ exports.updateSubSection = async(req, res) => {
         })
     }
 }
+
+//delete Sub Section
+exports.deleteSubSection = async (req, res) => {
+    try{
+        //fetch the data from the body
+        const {subSectionId, sectionId} = req.body
+        //validation
+        if(!subSectionId || !sectionId) {
+            return res.status(401).json({
+                success:false,
+                message:"Unable to get section and subsection id"
+            })
+        }
+        //delete from subsection model
+        const deletedSubSection = await SubSection.findByIdAndDelete(subSectionId)
+        //console deleted sub section
+        console.log(deletedSubSection)
+        //update the corresponding section
+        const updatedSection = await Seciton.findByIdAndUpdate(sectionId,
+                                            {
+                                                $pull: {subSection:subSectionId}
+                                            })
+        //console updatedSection
+        console.log("Updated Section",updatedSection)
+        //retrun response
+        return res.status(200).json({
+            success:true,
+            message:"Sub section deleted successfully",
+        })
+    } catch(error){
+        return res.status(501).json({
+            success:false,
+            message:"Failed to delete the sub section",
+        })
+    }
+}
