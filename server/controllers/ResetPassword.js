@@ -18,13 +18,13 @@ exports.resetPasswordToken = async(req,res) => {
         }
 
         //generate token
-        const token = crypto.randomUUID();
+        const token = crypto.randomBytes(20).toString("hex");
         //update user by adding token and expiration time
         const updatedDetails = await User.findOneAndUpdate(
                                     {email:email},
                                     {
                                         token:token,
-                                        resetPasswordExpires: Date.now() + 5*60*1000
+                                        resetPasswordExpires: Date.now() + 3600000
                                     },
                                     {new:true}
                                 )
@@ -80,17 +80,17 @@ exports.resetPassword = async(req,res) => {
             });
         }
         //hase password
-        const hashedPassword = await bcrypt.hash(password,10)
+        const encryptedPassword = await bcrypt.hash(password,10)
 
         //password update
         await User.findOneAndUpdate(
             {token:token},
-            {password:hashedPassword},
+            {password:encryptedPassword},
             {new:true}
         )
 
         //return response
-        return res.status(200).json({
+        res.json({
             success:true,
             message:'password rest successfully',
         })

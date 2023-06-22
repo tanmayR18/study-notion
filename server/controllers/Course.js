@@ -8,7 +8,9 @@ const {uploadImageToCloudinary} = require('../utils/imageUploader')
 exports.createCourse = async(req, res) => {
     try{
         //fetch data 
-        const {courseName, courseDescription, whatYoutWillLearn, price, category} = req.body
+        let {courseName, courseDescription, whatYoutWillLearn,status, price,tag, category,instructions} = req.body
+
+        const userId = req.user.id;
 
         //get thumbnail
         const thumbnail = req.files.thumbnailImage;
@@ -21,9 +23,14 @@ exports.createCourse = async(req, res) => {
             });
         }
 
+        if (!status || status === undefined) {
+			status = "Draft";
+		}
+
         //check for instructor
-        const userId = req.user.id;
-        const instructorDetails = await User.findById(userId)
+        const instructorDetails = await User.findById(userId, {
+			accountType: "Instructor",
+		});
         console.log("Instructor Details:", instructorDetails)
         //TODO: Verify that userId and InstructorDetails._id are same or different ?
 
@@ -53,8 +60,11 @@ exports.createCourse = async(req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYoutWillLearn,
             price,
+            tag:tag,
             category:categoryDetails._id,
             thumbnail:thumbnailImage.secure_url,
+            status: status,
+			instructions: instructions,
         })
 
         //add the new course to the user schema of Instrutor
@@ -75,12 +85,17 @@ exports.createCourse = async(req, res) => {
             {name:categoryDetails.name},
             {
                 $push: {
-                    course: newCourse.id
+                    course: newCourse._id
                 }
             },
             {new:true}
         )
-
+        // Return the new course and a success message
+		res.status(200).json({
+			success: true,
+			data: newCourse,
+			message: "Course Created Successfully",
+		});
     } catch(erorr) {
         console.error(error);
         return res.status(500).json({
@@ -93,10 +108,21 @@ exports.createCourse = async(req, res) => {
 
 //getAll courses 
 
-exports.showAllCourses = async (req, res) => {
+exports.getAllCourses = async (req, res) => {
     try{
         //TODO: change the below statement incrementally
-        const allCourses = await Course.find({});
+        const allCourses = await Course.find({},
+            {
+				courseName: true,
+				price: true,
+				thumbnail: true,
+				instructor: true,
+				ratingAndReviews: true,
+				studentsEnroled: true,
+			}
+        )
+                .populate("instructor")
+                .exec();
          
         return res.status(200).json({
             success:true,
@@ -110,5 +136,55 @@ exports.showAllCourses = async (req, res) => {
             message:'Cannot Fetch course data',
             error:error.message,
         })
+    }
+}
+
+//getCourseDetails
+exports.getCourseDetails = async (req, res) => {
+    try {
+            //get id
+            const {courseId} = req.body;
+            //find course details
+            const courseDetails = await Course.find(
+                                        {_id:courseId})
+                                        .populate(
+                                            {
+                                                path:"instructor",
+                                                populate:{
+                                                    path:"additionalDetails",
+                                                },
+                                            }
+                                        )
+                                        .populate("category")
+                                        .populate("ratingAndreviews")
+                                        .populate({
+                                            path:"courseContent",
+                                            populate:{
+                                                path:"subSection",
+                                            },
+                                        })
+                                        .exec();
+
+                //validation
+                if(!courseDetails) {
+                    return res.status(400).json({
+                        success:false,
+                        message:`Could not find the course with ${courseId}`,
+                    });
+                }
+                //return response
+                return res.status(200).json({
+                    success:true,
+                    message:"Course Details fetched successfully",
+                    data:courseDetails,
+                })
+
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:error.message,
+        });
     }
 }
