@@ -5,6 +5,7 @@ const otpGenerator = require('otp-generator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const mailSender = require('../utils/mailSender')
+const {passwordUpdated} = require('../mail/templates/passwordUpdate')
 require('dotenv').config()
 
 
@@ -34,23 +35,29 @@ exports.sendOTP = async(req,res) => {
         console.log("OTP generated: ", otp)
 
         //check whether otp is unique or not
-        let result = await OTP.findOne({otp: otp})
-
-        while(result){
-            var otp = otpGenerator.generate(6,{
-                upperCaseAlphabets:false,
-                lowerCaseAlphabets:false,
-                specialChars:false
-            })
-            result = await OTP.findOne({otp: otp})
-        }
-
+        const result = await OTP.findOne({otp: otp})
+        console.log("Result is Generate OTP Func");
+		console.log("OTP", otp);
+		console.log("Result", result);
+        // while(result){
+        //     //here are some changes
+        //     otp = otpGenerator.generate(6,{
+        //         upperCaseAlphabets:false,
+        //         lowerCaseAlphabets:false,
+        //         specialChars:false
+        //     })
+        //     result = await OTP.findOne({otp: otp})
+        // }
+        while (result) {
+			otp = otpGenerator.generate(6, {
+				upperCaseAlphabets: false,
+			});
+		}
         const otpPayload = {email, otp}
 
         //create an entry for OTP
         const otpBody = await OTP.create(otpPayload)
-        console.log(otpBody)
-        
+        console.log("Otp body",otpBody);
 
         //return response successfully
         res.status(200).json({
@@ -69,7 +76,7 @@ exports.sendOTP = async(req,res) => {
 
 
 //SignUp
-exports.signUp = async(req,res) => {
+exports.signup = async(req,res) => {
     try{
 
         //data fetch from the request body
@@ -87,7 +94,7 @@ exports.signUp = async(req,res) => {
         //validate data
         if (!firstName || !lastName || !email || !password || !confirmPassword
             || !accountType || !contactNumber || !otp ) {
-                return res.status(403).json({
+                return res.status(403).send({
                     success: false,
                     message: "All the field are required"
                 })
@@ -102,7 +109,7 @@ exports.signUp = async(req,res) => {
         }
 
         //check user already exist or not
-        const exisitngUser = await User.findOne({email})
+        const existingUser = await User.findOne({email})
         if(existingUser) {
             return res.status(400).json({
                 success:false,
@@ -121,7 +128,7 @@ exports.signUp = async(req,res) => {
                 success:false,
                 message:'OTP not Found',
             })
-        } else if(otp !== recentOtp.otp) {
+        } else if(otp !== recentOtp[0].otp) {
             //Invalid OTP
             return res.status(400).json({
                 success:false,
@@ -131,6 +138,10 @@ exports.signUp = async(req,res) => {
 
         //Hash Password
         const hasedPassowrd = await bcrypt.hash(password,10)
+
+        // Create the user
+		let approved = "";
+		approved === "Instructor" ? (approved = false) : (approved = true);
 
         //entry created in DB
         const profileDetailts = await Profile.create({
@@ -145,12 +156,18 @@ exports.signUp = async(req,res) => {
             lastName,
             email,
             contactNumber,
-            password,
             password:hasedPassowrd,
-            accountType,
+            accountType:accountType,
+            approved:approved,
             additionalDetails: profileDetailts._id,
             image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastName}`,
         })
+
+        return res.status(200).json({
+			success: true,
+			user,
+			message: "User registered successfully",
+		});
 
     } catch(error) {
         console.log(error);
@@ -168,7 +185,8 @@ exports.login = async(req, res) => {
         //get data from the body
         const {email, password} = req.body;
         if(!email || !password){
-            return res.status(403). json({
+            // Return 400 Bad Request status code with error message
+            return res.status(400). json({
                 success:false,
                 message:'All fields are required, please try again',
             });
@@ -177,6 +195,7 @@ exports.login = async(req, res) => {
         //user check exit or not
         const user = await User.findOne({email}).populate("additionalDetails")
         if(!user){
+            // Return 401 Unauthorized status code with error message
             return res.status(401).json({
                 success:false,
                 message:"User is not registrered, please signup first",
@@ -188,10 +207,10 @@ exports.login = async(req, res) => {
             const payload = {
                 email: user.email,
                 id: user._id,
-                accountType: user.accountType
+                role: user.role
             }
             const token = jwt.sign(payload, process.env.JWT_SECRET, {
-                expiresIn:"2h"
+                expiresIn:"24h"
             })
             user.token = token
             user.password = undefined
@@ -236,15 +255,15 @@ exports.login = async(req, res) => {
             //match the password 
             // - password entered by the user
             if(newPassword !== confirmPassword){
-                return res.status(401).json({
+                return res.status(400).json({
                     success:false,
                     message: 'Enter the correct New and Confirm password properly'
                 })
 
             }
             // - password comparison with db
-            const user = await User.findOne({email:email})
-            if(!bcrypt.compare(oldPassword,user.password)){
+            const userDetails = await User.findOne({email:email})
+            if(!bcrypt.compare(oldPassword,userDetails.password)){
                 return res.status(401).json({
                     success:false,
                     message: 'Enter the correct Old Password'
@@ -252,13 +271,33 @@ exports.login = async(req, res) => {
             }
  
             // hashing of password and Update the db
-            const hasedPassowrd = bcrypt.hash(newPassword,10)
             try{
+                const hashedPassowrd = await bcrypt.hash(newPassword,10)
                 const updatedUser = await User.findOneAndUpdate({email:email},
-                    {password:hasedPassowrd},
+                    {password:hashedPassowrd},
                     {new:true})
 
-                await mailSender(email, "Password Updated", <p> Your password for Study Notion has been updated, if it wasn't you then contact us</p> )
+                // Send notification email
+                try {
+                    const emailResponse = await mailSender(
+                        updatedUserDetails.email,
+                        //here are some changes
+                        "Passord updated - Study Notion",
+                        passwordUpdated(
+                            updatedUserDetails.email,
+                            `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+                        )
+                    );
+                    console.log("Email sent successfully:", emailResponse.response);
+                } catch (error) {
+                    // If there's an error sending the email, log the error and return a 500 (Internal Server Error) error
+                    console.error("Error occurred while sending email:", error);
+                    return res.status(500).json({
+                        success: false,
+                        message: "Error occurred while sending email",
+                        error: error.message,
+                    });
+                }
 
                 return res.status(200).json({
                     success:true,
@@ -273,7 +312,9 @@ exports.login = async(req, res) => {
                 message:'Failed to update the new Password in DB',
                 });
             }
+
             
+
         } catch( error ){
             console.log(error);
             return res.status(500).json({

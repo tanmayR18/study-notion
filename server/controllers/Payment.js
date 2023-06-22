@@ -129,7 +129,7 @@ exports.verifySignature = async(req, res) => {
             const emailResponse = await mailSender(
                                         enrolledStudent.email,
                                         "Congratulations from Codehelp",
-                                        "Congratulations, you are onboarded into new CodeHelp Course",    
+                                        courseEnrollmentEmail(courseId),    
                                     )
             console.log(emailResponse)
             return res.status(200).json({
