@@ -1,4 +1,4 @@
-const Category = require('../model/Category')
+const Category = require('../models/Category')
 
 //create Category
 
@@ -35,7 +35,7 @@ exports.createCategory = async (req,res) => {
 
 
 //getAllCategory 
-exports.showAllCategory = async (req, res) => {
+exports.showAllCategories = async (req, res) => {
     try{
         const allCategory = await Category.find({},{name:true, description:true})
         res.status(200).json({
