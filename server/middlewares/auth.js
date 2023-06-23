@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 require('dotenv')
-const User = require('../model/User')
+const User = require('../models/User')
 
 //auth 
 exports.auth = async(req, res, next) => {
@@ -10,7 +10,7 @@ exports.auth = async(req, res, next) => {
                         || req.body.token
                         || req.header("Authorisation").replace("Brearer ","")
         //if token missing, then return response
-        if(token){
+        if(!token){
             return res.status(401).json({
                 sucess:false,
                 message:"Token is missing"
@@ -86,7 +86,7 @@ exports.isAdmin = async(req,res) => {
         if(req.user.accountType !== "Admin") {
             return res.status(401).json({
                 sucess:false,
-                message:"This is a protected route for Student only"
+                message:"This is a protected route for Admin only"
             })
         }
         next()

@@ -1,6 +1,7 @@
-const User = require('../model/User')
+const User = require('../models/User')
 const mailSender = require('../utils/mailSender')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 
 //resetPasswordToken
 
@@ -10,6 +11,7 @@ exports.resetPasswordToken = async(req,res) => {
         const email = req.body.email
         //chec user for this email,email validation
         const user = await User.findOne({email:email})
+        console.log(user)
         if(!user) {
             return res.status(401).json({
                 success: false,
@@ -28,7 +30,7 @@ exports.resetPasswordToken = async(req,res) => {
                                     },
                                     {new:true}
                                 )
-        
+        console.log("updatedDetails",updatedDetails)
         //create url
         const url = `http://localhost:3000/update-password/${token}`
         //send mail containg the url

@@ -13,7 +13,7 @@ const {
     resetPassword,
   } = require("../controllers/ResetPassword")
 
-  const { auth } = require("../middleware/auth")
+  const { auth } = require("../middlewares/auth")
 
 
 // Route for user login

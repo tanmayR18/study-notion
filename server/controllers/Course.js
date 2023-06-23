@@ -1,6 +1,6 @@
-const Course = require('../model/Course')
-const Category = require('../model/Category')
-const User = require('../model/User')
+const Course = require('../models/Course')
+const Category = require('../models/Category')
+const User = require('../models/User')
 const {uploadImageToCloudinary} = require('../utils/imageUploader')
 
 

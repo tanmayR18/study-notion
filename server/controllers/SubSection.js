@@ -1,5 +1,5 @@
-const SubSection = require('../model/SubSection')
-const Seciton = require('../model/Section')
+const SubSection = require('../models/SubSection')
+const Seciton = require('../models/Section')
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 //create subsection
