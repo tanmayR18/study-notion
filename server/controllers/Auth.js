@@ -10,11 +10,11 @@ require('dotenv').config()
 
 
 //send OTP
-exports.sendOTP = async(req,res) => {
+exports.sendotp = async(req,res) => {
     try{
         //fetch email from request body
         const {email} = req.body
-
+        console.log(email)
         //check if user already exist
         const checkUserPresent = await User.findOne({email})
 
@@ -93,7 +93,7 @@ exports.signup = async(req,res) => {
 
         //validate data
         if (!firstName || !lastName || !email || !password || !confirmPassword
-            || !accountType || !contactNumber || !otp ) {
+            || !accountType || !otp ) {
                 return res.status(403).send({
                     success: false,
                     message: "All the field are required"
@@ -160,7 +160,7 @@ exports.signup = async(req,res) => {
             accountType:accountType,
             approved:approved,
             additionalDetails: profileDetailts._id,
-            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastName}`,
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
         })
 
         return res.status(200).json({
