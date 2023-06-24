@@ -10,7 +10,7 @@ exports.createSubSection = async (req, res) => {
         //extract file/video
         const video = req.files.videoFile
         //validation
-        if(!sectionId || !title || !timeDuration || !description || !video) {
+        if(!sectionId || !title || !description || !video) {
             return res.status(400).json({
                 success:false,
                 message:'All fields are required',

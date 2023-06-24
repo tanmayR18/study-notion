@@ -48,19 +48,19 @@ const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth"
 // ********************************************************************************************************
 
 // Courses can Only be Created by Instructors
-router.post("/createCourse", auth, isAdmin, createCourse)
+router.post("/createCourse", auth, isInstructor, createCourse)
 //Add a Section to a Course
-router.post("/addSection", auth, isInstructor, createSection)
+router.post("/createSection", auth, isInstructor, createSection)
 // Update a Section
 router.post("/updateSection", auth, isInstructor, updateSection)
 // Delete a Section
-router.post("/deleteSection", auth, isInstructor, deleteSection)
+router.post("/deleteSection/:sectionId", auth, isInstructor, deleteSection)
 // Edit Sub Section
 router.post("/updateSubSection", auth, isInstructor, updateSubSection)
 // Delete Sub Section
 router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 // Add a Sub Section to a Section
-router.post("/addSubSection", auth, isInstructor, createSubSection)
+router.post("/createSubSection", auth, isInstructor, createSubSection)
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses

@@ -8,7 +8,7 @@ const {uploadImageToCloudinary} = require('../utils/imageUploader')
 exports.createCourse = async(req, res) => {
     try{
         //fetch data 
-        let {courseName, courseDescription, whatYoutWillLearn,status, price,tag, category,instructions} = req.body
+        let {courseName, courseDescription, whatYouWillLearn,status, price,tag, category,instructions} = req.body
 
         const userId = req.user.id;
 
@@ -16,7 +16,7 @@ exports.createCourse = async(req, res) => {
         const thumbnail = req.files.thumbnailImage;
 
         //validation
-        if(!courseName || !courseDescription || !whatYoutWillLearn || !price || !category || !thumbnail) {
+        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail) {
             return res.status(400).json({
                 success:false,
                 message:'All fields are required',
@@ -58,7 +58,7 @@ exports.createCourse = async(req, res) => {
             courseName,
             courseDescription,
             instructor: instructorDetails._id,
-            whatYouWillLearn: whatYoutWillLearn,
+            whatYouWillLearn: whatYouWillLearn,
             price,
             tag:tag,
             category:categoryDetails._id,
@@ -156,7 +156,7 @@ exports.getCourseDetails = async (req, res) => {
                                             }
                                         )
                                         .populate("category")
-                                        .populate("ratingAndreviews")
+                                        //.populate("ratingAndreviews")
                                         .populate({
                                             path:"courseContent",
                                             populate:{
