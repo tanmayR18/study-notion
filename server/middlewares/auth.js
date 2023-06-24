@@ -22,6 +22,7 @@ exports.auth = async(req, res, next) => {
             const decode = jwt.verify(token,process.env.JWT_SECRET)
             console.log(decode)
             req.user = decode
+            console.log("Inside auth",req.user)
         } catch(error){
             //verification - issue
             return res.status(401).json({
@@ -81,8 +82,9 @@ exports.isInstructor = async(req,res,next) => {
 
 
 //isAdmin
-exports.isAdmin = async(req,res) => {
+exports.isAdmin = async(req,res,next) => {
     try{
+        console.log("Account type of user",req.user)
         if(req.user.accountType !== "Admin") {
             return res.status(401).json({
                 sucess:false,

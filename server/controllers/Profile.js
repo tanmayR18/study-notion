@@ -48,14 +48,14 @@ exports.deleteAccount = async (req, res) => {
 			return res.status(404).json({
 				success: false,
 				message: "User not found",
-			});
+			});  
 		}
 		// Delete Assosiated Profile with the User
-		await Profile.findByIdAndDelete({ _id: user.userDetails });
+		await Profile.findByIdAndDelete({ _id: user.additionalDetails });
 		// TODO: Unenroll User From All the Enrolled Courses
         
 		// Now Delete User
-		await user.findByIdAndDelete({ _id: id });
+		await User.findByIdAndDelete({ _id: id });
 		res.status(200).json({
 			success: true,
 			message: "User deleted successfully",

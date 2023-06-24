@@ -10,7 +10,7 @@ const{
 } = require('../controllers/Profile')
 
 
-router.delete("/deleteProfile",deleteAccount)
+router.delete("/deleteProfile",auth,deleteAccount)
 router.put("/updateProfile",auth, updateProfile)
 router.get("/getUserDetails",auth,getAllUserDetails)
 router.get("/getEnrolledCourses",auth,getEnrolledCourses)
