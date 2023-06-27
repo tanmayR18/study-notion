@@ -9,6 +9,7 @@ import TimelineSection from '../components/core/HomePage/TimelineSection'
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection'
 import InstructionSection from '../components/core/HomePage/InstructionSection'
 import ExploreMore from '../components/core/HomePage/ExploreMore'
+import Footer from '../components/common/Footer'
 
 const Home = () => {
   return (
@@ -186,8 +187,9 @@ const Home = () => {
           <h2 className='text-center text-4xl font-semibold mt-10'>Review from other learners</h2>
     </div>  
 
-    {/* Section 4 */}
+    {/* Footer */}
 
+    <Footer/>
 
     </div>
   )
