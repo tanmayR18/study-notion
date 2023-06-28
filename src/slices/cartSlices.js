@@ -1,5 +1,6 @@
+import { toast } from "react-hot-toast"
 const { createSlice } = require("@reduxjs/toolkit")
-const { toast } = require("react-hot-toast")
+
 
 const initialState = {
     cart: localStorage.getItem("cart") ?
@@ -44,7 +45,7 @@ const cartSlice = createSlice({
             const index = state.cart.findIndex((item) => item._id === courseId)
             if(index){
                 //if the course is found in the cart, remove it
-                state.totalItems--,
+                state.totalItems--
                 state.total -= state.cart[index].price
                 state.cart.splice(index,1)
                 //update to local storage
