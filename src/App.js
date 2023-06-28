@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from '../src/pages/Home'
 import Navbar from "./components/common/Navbar";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
