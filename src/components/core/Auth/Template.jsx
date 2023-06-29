@@ -17,10 +17,10 @@ const Template = ({title, description1, description2, image, formType }) => {
                     <h1 className='text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5'>
                         {title}
                     </h1>
-                    <p className='mt-4 text-[1.125rem] leading-[1.625rem]'>
+                    <div className='mt-4 text-[1.125rem] leading-[1.625rem]'>
                         <p className='text-richblack-100'>{description1}</p>
                         <p className=' font-edu-sa  italic text-blue-100'>{description2}</p>
-                    </p>
+                    </div>
                     {formType === "signup" ? <SignupForm/> : <LoginForm></LoginForm>}
                 </div>
                 {/* width and height of the image removed */}
