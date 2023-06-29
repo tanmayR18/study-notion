@@ -24,9 +24,11 @@ const Template = ({title, description1, description2, image, formType }) => {
                     {formType === "signup" ? <SignupForm/> : <LoginForm></LoginForm>}
                 </div>
                 {/* width and height of the image removed */}
-                <div className='relative mx-auto w-11/12 max-w-[450px] md:mx-0'>
-                    <img src={frameImg}  alt='Pattern' loading='lazy' />
-                    <img src={image} className=' absolute -top-4 right-4 z-10' alt='Pattern' loading='lazy' />
+                <div className='flex items-center relative mx-auto w-11/12 max-w-[450px] md:mx-0'>
+                    <div className='relative'>
+                        <img src={frameImg}  alt='Pattern' loading='lazy' />
+                        <img src={image} className=' absolute -top-4 right-4 z-10' alt='Pattern' loading='lazy' />
+                    </div>
                 </div>
             </div>
         }
