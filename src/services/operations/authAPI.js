@@ -1,5 +1,9 @@
 
-
+export function sendOTP(email, navigate){
+    return (dispatch) => {
+        console.log("Otp send successfully")
+    }
+}
 
 
 export function login(email,password,navigate){
@@ -10,15 +14,3 @@ ${password}`)
     navigate("/dashboard")
 }
 
-export function signUp({accountType,firstName,lastName,email,password,confirmPassword,otp, navigate}){
-    return (dispatch) => {
-        console.log(`${accountType}
-    ${firstName}
-    ${lastName}
-    ${email}
-    ${password}
-    ${confirmPassword}
-    ${otp}`)
-    navigate("/login")
-    }
-}
