@@ -5,6 +5,7 @@ import Navbar from "./components/common/Navbar";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Aboutus from "./pages/Aboutus";
 
 function App() { 
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<OpenRoute><Signup/></OpenRoute>} />
         <Route path="/login" element={<OpenRoute><Login/></OpenRoute>} />
+        <Route path="/about" element={<OpenRoute><Aboutus/></OpenRoute>} />
       </Routes>
     </div>
   );
