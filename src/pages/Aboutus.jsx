@@ -5,6 +5,8 @@ import BannerImage3 from '../assets/Images/aboutus3.webp'
 import HighlightText from '../components/core/HomePage/HighlightText'
 import Quote from '../components/core/AboutPage/Quote'
 import Stats from '../components/core/AboutPage/Stats'
+import LearningGrid from '../components/core/AboutPage/LearningGrid'
+import ContactFormSection from '../components/core/AboutPage/ContactFormSection'
 
 const Aboutus = () => {
   return (
@@ -19,9 +21,9 @@ const Aboutus = () => {
                 </header>
             
                 <div className='flex gap-x-3 mx-auto'>
-                    <img src={BannerImage1} />
-                    <img src={BannerImage2} />
-                    <img src={BannerImage3} />
+                    <img alt='' src={BannerImage1} />
+                    <img alt='' src={BannerImage2} />
+                    <img alt='' src={BannerImage3} />
                 </div>
             </div>
         </section>
@@ -66,6 +68,12 @@ const Aboutus = () => {
 
         {/* Section 4 */}
         <Stats/>
+
+        {/* Section 5 */}
+        <section className=' mx-auto flex flex-col items-center justify-between gap-5 mb-[140px]'>
+        <LearningGrid/>
+        <ContactFormSection/>
+        </section>
     </div>
   )
 }
