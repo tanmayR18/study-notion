@@ -1,10 +1,17 @@
-exports.courseEnrollmentEmail = (courseName, name) => {
+exports.contactUsEmail = (
+    email,
+    firstname,
+    lastname,
+    message,
+    phoneNo,
+    countrycode
+  ) => {
     return `<!DOCTYPE html>
     <html>
     
     <head>
         <meta charset="UTF-8">
-        <title>Course Registration Confirmation</title>
+        <title>Contact Form Confirmation</title>
         <style>
             body {
                 background-color: #ffffff;
@@ -67,21 +74,24 @@ exports.courseEnrollmentEmail = (courseName, name) => {
     
     <body>
         <div class="container">
-            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
-                    alt="StudyNotion Logo"></a>
-            <div class="message">Course Registration Confirmation</div>
+            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo"
+                    src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+            <div class="message">Contact Form Confirmation</div>
             <div class="body">
-                <p>Dear ${name},</p>
-                <p>You have successfully registered for the course <span class="highlight">"${courseName}"</span>. We
-                    are excited to have you as a participant!</p>
-                <p>Please log in to your learning dashboard to access the course materials and start your learning journey.
+                <p>Dear ${firstname} ${lastname},</p>
+                <p>Thank you for contacting us. We have received your message and will respond to you as soon as possible.
                 </p>
-                <a class="cta" href="https://studynotion-edtech-project.vercel.app/dashboard">Go to Dashboard</a>
+                <p>Here are the details you provided:</p>
+                <p>Name: ${firstname} ${lastname}</p>
+                <p>Email: ${email}</p>
+                <p>Phone Number: ${phoneNo}</p>
+                <p>Message: ${message}</p>
+                <p>We appreciate your interest and will get back to you shortly. </p>
             </div>
-            <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a
-                    href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!</div>
+            <div class="support">If you have any further questions or need immediate assistance, please feel free to reach
+                out to us at <a href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!</div>
         </div>
     </body>
     
-    </html>`;
-  };
+    </html>`
+  }

@@ -52,7 +52,10 @@ exports.capturePayment = async(req, res) => {
     const options = {
         amount:amount*100,
         currency,
-        receipt: Math.random(Date.now().toString()),
+        //There should not be math.random() or there should be some modification 
+        //else the receipt will be in decial number
+        // Math.random(Date.now().toString()), --> Date.now().toString()
+        receipt: Date.now().toString(),
         notes:{
             courseId:course_id,
             userId
@@ -116,7 +119,7 @@ exports.verifySignature = async(req, res) => {
 
             console.log(enrolledCourse);
 
-            //find the student andadd the course to their list enrolled courses me 
+            //find the student and add the course to their list enrolled courses me 
             const enrolledStudent = await User.findOneAndUpdate(
                             {_id:userId},
                             {$push:{courses:courseId}},
