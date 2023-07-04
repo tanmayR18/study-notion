@@ -22,7 +22,7 @@ exports.sendotp = async(req,res) => {
         if(checkUserPresent) {
             return res.status(401).json({
                 success: false,
-                message: " User alreadu register "
+                message: " User already register "
             })
         }
 
@@ -48,6 +48,9 @@ exports.sendotp = async(req,res) => {
         //     })
         //     result = await OTP.findOne({otp: otp})
         // }
+        
+        //Here are some change required because if result has a any truthy value
+        //then then loop will run continously
         while (result) {
 			otp = otpGenerator.generate(6, {
 				upperCaseAlphabets: false,
@@ -62,7 +65,7 @@ exports.sendotp = async(req,res) => {
         //return response successfully
         res.status(200).json({
             success:true,
-            message:"OTP sent successfully",
+            message:"OTP stored in DB successfully",
             otp,
         })
     } catch(error){
@@ -100,7 +103,7 @@ exports.signup = async(req,res) => {
                 })
             }
 
-        //match the twp password
+        //match the two password
         if(password !== confirmPassword){
             return res.status(400).json({
                 success: false,
@@ -141,7 +144,7 @@ exports.signup = async(req,res) => {
 
         // Create the user
 		let approved = "";
-		approved === "Instructor" ? (approved = false) : (approved = true);
+		accountType === "Instructor" ? (approved = false) : (approved = true);
 
         //entry created in DB
         const profileDetailts = await Profile.create({
@@ -282,7 +285,7 @@ exports.login = async(req, res) => {
                     const emailResponse = await mailSender(
                         updatedUserDetails.email,
                         //here are some changes
-                        "Passord updated - Study Notion",
+                        "Password updated - Study Notion",
                         passwordUpdated(
                             updatedUserDetails.email,
                             `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
