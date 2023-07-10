@@ -19,7 +19,7 @@ const fileUpload = require('express-fileupload')
 
 
 //database connect
-database.connect();
+database.connect(); 
 // //middleware
 app.use(express.json())
 app.use(cookieParser())
@@ -48,10 +48,11 @@ app.use("/api/v1/payment",paymentRoutes)
 
 //default 
 app.get('/',(req, res) => {
-    return res.json({ 
-        success:true,
-        messgae:"Your server is up and running"
-    })
+    // return res.json({ 
+    //     success:true,
+    //     messgae:"Your server is up and running"
+    // })
+    res.send("<h1>Ye buddy light weight</h1>") 
 })
 
 app.listen(PORT,()=>{
