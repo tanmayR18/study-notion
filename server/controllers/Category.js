@@ -59,6 +59,7 @@ exports.categoryPageDetails = async (req, res) => {
             //get categoryId
             const {categoryId} = req.body;
             //get courses for specified categoryId
+            //If the categories does not have any course then db will throw error for populating course
             const selectedCategory = await Category.findById(categoryId)
                                             .populate("courses")
                                             .exec();

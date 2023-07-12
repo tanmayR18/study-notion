@@ -55,8 +55,9 @@ exports.resetPasswordToken = async(req,res) => {
 exports.resetPassword = async(req,res) => {
     try{
         //data fetch
-        const {password, confirmPassword, token} = req.body
-
+        //see how we can user params for getting the token 
+        const {password, confirmPassword,token} = req.body
+        
         //validation
         if(password !== confirmPassword){
             return res.json({
@@ -95,6 +96,7 @@ exports.resetPassword = async(req,res) => {
         res.json({
             success:true,
             message:'password rest successfully',
+            data:userdetails
         })
 
     } catch(error) {
