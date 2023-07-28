@@ -9,6 +9,7 @@ const {
   createCourse,
   getAllCourses,
   getCourseDetails,
+  getTop10Courses
 } = require("../controllers/Course")
 
 
@@ -65,6 +66,8 @@ router.post("/createSubSection", auth, isInstructor, createSubSection)
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
+// Get the Top 10 selling courses
+router.get("/getTop10Courses",getTop10Courses)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
