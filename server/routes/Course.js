@@ -36,7 +36,7 @@ const {
 
 // Rating Controllers Import
 const {
-  createRating,
+  addRating,
   getAverageRating,
   getAllRating,
 } = require("../controllers/RatingAndReview")
@@ -81,7 +81,7 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // ********************************************************************************************************
 //                                      Rating and Review
 // ********************************************************************************************************
-router.post("/createRating", auth, isStudent, createRating)
+router.post("/addRating", auth, isStudent, addRating)
 router.get("/getAverageRating", getAverageRating)
 //here maybe some changes
 router.get("/getReviews", getAllRating)

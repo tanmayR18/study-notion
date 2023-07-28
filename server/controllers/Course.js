@@ -212,7 +212,7 @@ exports.getTop10Courses = async(req, res) => {
         return res.status(200).json({
             success: true,
             message: "Top 10 best selling courses fetched successfully",
-            error: error.message
+            data: top10course
         })
 
     } catch(error){
