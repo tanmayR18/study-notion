@@ -26,7 +26,7 @@ exports.createSubSection = async (req, res) => {
             videoUrl: uploadDetails.secure_url
         })
         //update section with this sub section ObjectID
-        const updatedSection = await Seciton.findByIdAndUpdate({_id:sectionId},
+        const updatedSection = await Section.findByIdAndUpdate({_id:sectionId},
                                                 {
                                                     $push:{
                                                         subSection:subSectionDetails._id
@@ -52,8 +52,8 @@ exports.createSubSection = async (req, res) => {
 //HW updateSubSection
 exports.updateSubSection = async (req, res) => {
     try {
-      const { sectionId, title, description } = req.body
-      const subSection = await SubSection.findById(sectionId)
+      const { subSectionId, title, description } = req.body
+      const subSection = await SubSection.findById(subSectionId)
   
       if (!subSection) {
         return res.status(404).json({
@@ -90,6 +90,7 @@ exports.updateSubSection = async (req, res) => {
       return res.status(500).json({
         success: false,
         message: "An error occurred while updating the section",
+        error: error.message
       })
     }
   }
