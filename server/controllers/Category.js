@@ -61,8 +61,8 @@ exports.categoryPageDetails = async (req, res) => {
             //get courses for specified categoryId
             //If the categories does not have any course then db will throw error for populating course
             const selectedCategory = await Category.findById(categoryId)
-                                            .populate("courses")
-                                            .exec();
+                                            //.populate("courses")
+                                            //.exec();
             //validation
             if(!selectedCategory) {
                 return res.status(404).json({
@@ -74,8 +74,8 @@ exports.categoryPageDetails = async (req, res) => {
             const differentCategories = await Category.find({
                                          _id: {$ne: categoryId},
                                          })
-                                         .populate("courses")
-                                         .exec();
+                                         //.populate("courses")
+                                         //.exec();
 
             //get top 10 selling courses
             //HW - write it on your own

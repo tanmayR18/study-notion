@@ -253,6 +253,10 @@ exports.login = async(req, res) => {
     exports.changePassword = async(req,res) => {
         try{
             // fetch data from the body
+
+            //If this fucntion is used inside the profile i.e the user is already logged in 
+            //then we can use email from the token rather than sending manually
+
             const {email, oldPassword, confirmPassword, newPassword} = req.body;
             
             //match the password 
@@ -276,7 +280,7 @@ exports.login = async(req, res) => {
             // hashing of password and Update the db
             try{
                 const hashedPassowrd = await bcrypt.hash(newPassword,10)
-                const updatedUser = await User.findOneAndUpdate({email:email},
+                const updatedUserDetails = await User.findOneAndUpdate({email:email},
                     {password:hashedPassowrd},
                     {new:true})
 
@@ -305,7 +309,7 @@ exports.login = async(req, res) => {
                 return res.status(200).json({
                     success:true,
                     message:"Password updated successfully",
-                    updatedUser
+                    updatedUserDetails
                 })
 
             } catch( error) {

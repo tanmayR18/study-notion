@@ -4,7 +4,7 @@ const { default: mongoose } = require('mongoose');
 
 
 //create rating
-exports.createRating = async (req, res) => {
+exports.addRating = async (req, res) => {
     try{
 
         //get user id
@@ -15,7 +15,7 @@ exports.createRating = async (req, res) => {
         const courseDetails = await Course.findOne(
                                     {
                                         _id:courseId,//see if change required
-                                        studentEnrolled:{$elemMatch: {$ep:userId}}
+                                        studentEnrolled:{$elemMatch: {$eq:userId}}
                                     }
                             )
         if(!courseDetails){
@@ -125,6 +125,15 @@ exports.getAllRating = async (req, res) => {
                                     select:"courseName",
                                 })
                                 .exec();
+
+            if(allReviews.length === 0){
+                return res.status(200).json({
+                    success:true,
+                    message:"There are no reviews yet",
+                    data:allReviews
+                })
+            }
+
             return res.status(200).json({
                 success:true,
                 message:"All review fetched successfully",

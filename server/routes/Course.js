@@ -9,6 +9,7 @@ const {
   createCourse,
   getAllCourses,
   getCourseDetails,
+  getTop10Courses
 } = require("../controllers/Course")
 
 
@@ -35,7 +36,7 @@ const {
 
 // Rating Controllers Import
 const {
-  createRating,
+  addRating,
   getAverageRating,
   getAllRating,
 } = require("../controllers/RatingAndReview")
@@ -65,6 +66,8 @@ router.post("/createSubSection", auth, isInstructor, createSubSection)
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
+// Get the Top 10 selling courses
+router.get("/getTop10Courses",getTop10Courses)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
@@ -78,7 +81,7 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // ********************************************************************************************************
 //                                      Rating and Review
 // ********************************************************************************************************
-router.post("/createRating", auth, isStudent, createRating)
+router.post("/addRating", auth, isStudent, addRating)
 router.get("/getAverageRating", getAverageRating)
 //here maybe some changes
 router.get("/getReviews", getAllRating)

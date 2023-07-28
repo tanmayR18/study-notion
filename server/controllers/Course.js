@@ -188,3 +188,38 @@ exports.getCourseDetails = async (req, res) => {
         });
     }
 }
+
+
+// //top 10 selling courses
+exports.getTop10Courses = async(req, res) => {
+    try{
+
+        const top10course = await Course.aggregate([
+            {
+                $project: {
+                    name: 1,
+                    numberOfStudents: {$size: "$studentEnrolled"},
+                },
+            },
+            {
+                $sort: {numberOfStudents: -1}
+            },
+            {
+                $limit: 10
+            }
+        ])
+
+        return res.status(200).json({
+            success: true,
+            message: "Top 10 best selling courses fetched successfully",
+            data: top10course
+        })
+
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Unable to get the top 10 courses",
+            error: error.message
+        })
+    }
+}

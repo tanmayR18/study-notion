@@ -133,6 +133,7 @@ exports.getEnrolledCourses = async (req, res) => {
       }
       return res.status(200).json({
         success: true,
+        message:"Enrolled courses fetched successfully",
         data: userDetails.courses,
       })
     } catch (error) {
