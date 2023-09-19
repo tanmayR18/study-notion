@@ -34,7 +34,7 @@ const Home = () => {
 
       {/* heading */}
       <div className='text-center text-4xl font-semibold mt-7'>
-            Empower Your Future with <HighlightText text={"Coding Skills"}/>
+            Empower Your Future with <HighlightText text={"Coding Skills"} direction={"bg-gradient-to-b"} gradient={" from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]"} />
       </div>
 
       {/* SubHeading */}
