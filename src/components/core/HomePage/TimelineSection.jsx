@@ -48,13 +48,18 @@ const TimelineSection = () => {
                 }
             </div>
 
-            <div className='relative shadow-blue-200'>
+            <div className='relative z-20 shadow-2xl shadow-blue-500'>
+
+                <div className=' w-full h-full absolute bg-white z-10 -bottom-5 -right-5 sha  shadow-blue-500'>
+                    
+                </div>
+                
                 <img src={timelineImage} 
                 alt='timelineImage'
-                className='shadow-white object-cover h-fit'
+                className='shadow-white object-cover h-fit relative z-20'
                 />
 
-                <div className=' absolute bg-caribbeangreen-700 flex flex-row text-white uppercase py-7
+                <div className=' absolute z-20 bg-caribbeangreen-700 flex flex-row text-white uppercase py-7
                 left-[50%] translate-x-[-50%] translate-y-[-50%]'>
                     <div className='flex flex-row gap-5 items-center border-r border-caribbeangreen-300 px-7'>
                         <p className='text-3xl font-bold'>10</p>

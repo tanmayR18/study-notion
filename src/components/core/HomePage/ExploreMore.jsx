@@ -28,7 +28,7 @@ const ExploreMore = () => {
     <div className='flex flex-col items-center'>
         <div className='text-4xl font-semibold text-center'>
             Unlock the
-            <HighlightText text={"Power of Code"}/>
+            <HighlightText text={"Power of code"} direction={"bg-gradient-to-b"} gradient={" from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]"} />
         </div>
         <p className='text-center text-richblack-300 text-sm text-[16px] mt-3'>
             Learn to build anything you can imagine
@@ -56,9 +56,9 @@ const ExploreMore = () => {
             }
         </div>
 
-        <div className='lg:h-[150px]'></div>
+        {/* <div className='lg:h-[150px]'></div> */}
         {/* course card ka group */}
-        <div className='flex flex-row gap-10 justify-between w-full'>
+        <div className='flex flex-row gap-10 justify-between w-full translate-y-16'>
             {
                 courses.map((element, index) => (
                     <CourseCard
