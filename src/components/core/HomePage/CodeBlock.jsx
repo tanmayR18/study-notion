@@ -42,6 +42,7 @@ const CodeBlock = ({position, heading, subheading, btn1, btn2, codeblock, backgr
                 <p>9</p>
                 <p>10</p>
                 <p>11</p>
+                <p>12</p>
             </div>    
             <div className={`w-[90%] flex flex-col gap-2 font-bold font-mono ${codeColor} pr-2`}>
                 <TypeAnimation 

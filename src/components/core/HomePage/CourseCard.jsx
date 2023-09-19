@@ -9,7 +9,7 @@ const CourseCard = ({currentCard, setCurrentCard, cardData}) => {
     onClick={() => setCurrentCard(cardData.heading)}
     className='h-[300px] w-[100%] relative cursor-pointer'>
 
-        <div className=' w-full h-full bg-yellow-50 absolute top-3 left-3'>
+        <div className={`w-full h-full ${cardData.heading === currentCard ? "" : "hidden"} bg-yellow-50 absolute top-3 left-3`}>
         </div>
         <div 
         className={` flex flex-col justify-between 
