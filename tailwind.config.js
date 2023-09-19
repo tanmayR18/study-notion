@@ -123,6 +123,9 @@ module.exports = {
         800: "#171717",
         900: "#141414",
       },
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      }
     },
     extend: {
       maxWidth: { 
