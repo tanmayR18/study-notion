@@ -6,7 +6,7 @@ import { endpoints } from "../apis"
 
 export function sendOTP(email, navigate){
     return (dispatch) => {
-        console.log("Otp send successfully")
+        console.log("Otp send successfully", email)
     }
 }
 
