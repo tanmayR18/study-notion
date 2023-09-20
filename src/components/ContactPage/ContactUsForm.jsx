@@ -38,18 +38,20 @@ const ContactUsForm = () => {
 
   return (
     <form onSubmit={handleSubmit(submitContactForm)}>
-        <div className='flex flex-col gap-14'>
+        <div className='flex flex-col gap-6'>
             {/* First and last name */}
             <div className='flex gap-5'>
                 {/* firstname */}
                 <div className='flex flex-col'>
-                <label htmlFor='firstName'>First Name</label>
+                <label
+                className=' text-richblack-5 text-sm mb-2'
+                htmlFor='firstName'>First Name</label>
                 <input 
                     type='text'
                     name='firstName'
                     id='firstName'
                     placeholder='Enter first name'
-                    className='text-black'
+                    className='text-white border-b border-b-richblack-400 bg-richblack-700 focus:outline-none p-3 rounded-md placeholder:text-richblack-200'
                     {...register("firstName",{required:true})}
                 />{
                     errors.firstName && (
@@ -59,15 +61,18 @@ const ContactUsForm = () => {
                     )
                 }
                 </div>
+
                 {/* Last Name */}
                 <div className='flex flex-col'>
-                <label htmlFor='lastName'>Last Name</label>
+                <label
+                className=' text-richblack-5 text-sm mb-2'
+                htmlFor='lastName'>Last Name</label>
                 <input 
                     type='text'
                     name='lastName'
                     id='lastName'
                     placeholder='Enter last name'
-                    className='text-black'
+                    className='text-white border-b border-b-richblack-400 bg-richblack-700 focus:outline-none p-3 rounded-md placeholder:text-richblack-200'
                     {...register("lastName",{required:true})}
                 />{
                     errors.lastName && (
@@ -81,12 +86,14 @@ const ContactUsForm = () => {
             
             {/* email */}
             <div className='flex flex-col'>
-                <label htmlFor='email'>Email Address</label>
+                <label 
+                className=' text-richblack-5 text-sm mb-2'
+                htmlFor='email'>Email Address</label>
                 <input 
                     type='email'
                     name='email'
                     id='email'
-                    className='text-black'
+                    className='text-white border-b border-b-richblack-400 bg-richblack-700 focus:outline-none p-3 rounded-md placeholder:text-richblack-200'
                     placeholder='Enter Email Address'
                     {...register("email", {required:true})}
                 />
@@ -101,19 +108,21 @@ const ContactUsForm = () => {
 
             {/* Phone NO */}
             <div className='flex flex-col'>
-                <label htmlFor='phonenumber'>Phone Number</label>
-                <div className='flex flow-row gap-1'>
+                <label htmlFor='phonenumber' className='text-sm mb-2'>Phone Number</label>
+                <div className='flex flow-row gap-2 '>
                     {/* Dropdown */}
                     <select
                     name='dropdown'
                     id='dropdown'
-                    className='bg-yellow-50 w-[80px] '
+                    className='bg-richblack-700 border-b border-b-richblack-400 w-[85px] rounded-md focus:outline-none p-3'
                     {...register("countrycode",{required:true})}    
                 >
                     {
                         CountryCode.map( (element, index) => (
-                            <option key={index} value={element.code}>
-                                {element.code} -{element.country}
+                            <option 
+                            className='focus:outline-none'
+                            key={index} value={element.code} >
+                                <div className=' flex gap-4'>{element.code} {"-"} {element.country}</div>
                             </option>
                         ))
                     }
@@ -124,7 +133,7 @@ const ContactUsForm = () => {
                         name='phonenumber'
                         id='phonenumber'
                         placeholder='12345 67890'
-                        className='text-black w-[calc(100%-90px)]'
+                        className=' w-[calc(100%-90px)] appearance-none text-white border-b border-b-richblack-400 bg-richblack-700 focus:outline-none p-3 rounded-md placeholder:text-richblack-200'
                         {...register("phoneNo",{
                             required:{value:true, message:"Please enter Phone Number"},
                             maxLength:{value:10, message:"Invalid Phone Number"},
@@ -143,12 +152,14 @@ const ContactUsForm = () => {
 
             {/* message */}
             <div className='flex flex-col'>
-                <label htmlFor='message'>Message</label>
+                <label 
+                className=' text-richblack-5 text-sm mb-2'
+                htmlFor='message'>Message</label>
                 <textarea 
                     name='message'
                     id='message'
                     cols="30"
-                    className='text-black'
+                    className='text-white border-b border-b-richblack-400 bg-richblack-700 focus:outline-none p-3 rounded-md placeholder:text-richblack-200'
                     rows="7"
                     placeholder='Enter Your message here'
                     {...register("message",{required:true})}
@@ -163,7 +174,7 @@ const ContactUsForm = () => {
             </div>
 
             <button type='submit'
-            className='rounded-md bg-yellow-50 text-center px-6 text-[16px] font-bold text-black'>
+            className='rounded-md bg-yellow-50 text-center py-3 tracking-wide text-[16px] font-bold text-black'>
                 Send Message
             </button>
         </div>

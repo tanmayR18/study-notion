@@ -3,11 +3,11 @@ import ContactUsForm from '../../ContactPage/ContactUsForm'
 
 const ContactFormSection = () => {
   return (
-    <div className='mx-auto'>
-        <h1>
+    <div className='mx-auto flex flex-col items-center'>
+        <h1 className=' text-[36px] font-bold'>
             Get in Touch
         </h1>
-        <p>
+        <p className=' text-richblack-300 mt-1 mb-10'>
             We'd love to here for you, Please fill out this form. 
         </p>
         <div>
