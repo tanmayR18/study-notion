@@ -6,22 +6,26 @@ import {RiArrowDropDownLine} from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import ProfileDropDown from '../core/Auth/ProfileDropDown'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { apiConnector } from '../../services/apiconnector'
+import { categories } from '../../services/apis'
 
 
-const subLinks = [
-    {
-        title: "Python",
-        link: "/catalog/python"
-    },
-    {
-        title: "Web Development",
-        link: "/catalog/web-development"
-    },
-    {
-        title: "AL/ML",
-        link: "/catalog/ai-ml"
-    }
-]
+// const subLinks = [
+//     {
+//         title: "Python",
+//         link: "/catalog/python"
+//     },
+//     {
+//         title: "Web Development",
+//         link: "/catalog/web-development"
+//     },
+//     {
+//         title: "AL/ML",
+//         link: "/catalog/ai-ml"
+//     }
+// ]
 
 const Navbar = () => {
 
@@ -29,12 +33,32 @@ const Navbar = () => {
     const {token} = useSelector( (state) => state.auth)
     const {user} = useSelector( (state) => state.profile)
     const {totalItems} = useSelector( (state) => state.cart)
+    const [subLinks, setSubLinks] = useState([])
+    const [currentRoute, setCurrentRoute] = useState("")
 
-
-    const matchRoute = (route) => {
-        console.log("Inside matchRoute",location.pathname)
-        return matchPath({path:route}, location.pathname)
+    const fetchAllCategories = async () => {
+        try{
+            const response = await apiConnector("GET", categories.CATEGORIES_API)
+            setSubLinks(response.data.data)
+        } catch(error) {
+            console.error(error)
+        }
     }
+
+    useEffect( () => {
+        fetchAllCategories()
+        // matchRoute()
+    },[])
+
+    //THis function is rendering multiple times
+    // const matchRoute = (route) => {
+    //     console.log("Inside matchRoute")
+    //     return matchPath({path:route}, location.pathname)
+    // }
+
+    // const matchRoute = () => {
+    //     setCurrentRoute(location.pathname)
+    // }
 
   return (
     <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700'>
@@ -60,7 +84,7 @@ const Navbar = () => {
                                             <RiArrowDropDownLine/>
 
                                             <div className=' invisible absolute left-[50%] translate-x-[-50%]
-                                             translate-y-[50%] top-[-50%] flex flex-col rounded-md bg-richblack-5
+                                             translate-y-[30%] top-[-30%] group-hover:translate-y-[20%] group-hover:top-[-20%] flex flex-col rounded-md bg-richblack-5
                                              p-4 text-richblack-900 opacity-0 transition-all duration-200
                                               group-hover:opacity-100 group-hover:visible lg:w-[300px] z-10'>
 
@@ -73,8 +97,8 @@ const Navbar = () => {
                                             {
                                                 subLinks.length ? (
                                                     subLinks.map( (subLink, index) => (
-                                                        <Link to={subLink.link} key={index}>
-                                                            <p className=' bg-richblack-300 rounded-md py-1 px-2 font-semibold'>{subLink.title}</p>
+                                                        <Link to={subLink.name.split(" ").join("-").toLowerCase()} key={index}>
+                                                            <p className=' hover:bg-richblack-25 rounded-md py-4 px-4 font-semibold'>{subLink.name}</p>
                                                         </Link>
                                                     ))
                                                 ) : (<div className='text-4xl text-richblack-900'>Not data found</div>)
@@ -86,7 +110,12 @@ const Navbar = () => {
                                     ) :
                                     (
                                         <Link to={link?.path}>
-                                            <p className={`${matchRoute(link?.path) ? "text-yellow-25" : "text-richblack-25"}`}>
+                                            {/* <p className={`${matchRoute(link?.path) ? "text-yellow-25" : "text-richblack-25"}`}>
+                                                {link.title}
+                                            </p> */}
+                                            <p 
+                                            onClick={ () => setCurrentRoute(link?.path)}
+                                            className={`${currentRoute === link?.path ? "text-yellow-25" : "text-richblack-25"}`}>
                                                 {link.title}
                                             </p>
                                         </Link>
@@ -101,7 +130,7 @@ const Navbar = () => {
             {/* Login/Signup/Dashboard */}
             <div className='flex gap-x-4 items-center'>
                 {
-                    user && user?.accountType != "Instructor" && (
+                    user && user?.accountType !== "Instructor" && (
                         <Link to={"/dashboard/cart"} className='relative'>
                             <AiOutlineShoppingCart/>
                             {
