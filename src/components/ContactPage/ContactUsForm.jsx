@@ -122,7 +122,7 @@ const ContactUsForm = () => {
                             <option 
                             className='focus:outline-none'
                             key={index} value={element.code} >
-                                <div className=' flex gap-4'>{element.code} {"-"} {element.country}</div>
+                                {`${element.code} ${element.country}`}
                             </option>
                         ))
                     }
