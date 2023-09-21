@@ -14,7 +14,7 @@ const Aboutus = () => {
   return (
     <div className=' text-white'>
         {/* Section 1 */}
-        <section className=' bg-richblack-700 '>
+        <section className=' bg-richblack-800 '>
             <div className='w-11/12 mx-auto pt-[80px] flex flex-col items-center'>
                 <p className=' text-richblack-200 text-base'>About Us</p>
                 <header className=' mt-[50px] mb-[40px] flex flex-col text-[36px] leading-10 font-semibold items-center'> 

@@ -9,6 +9,7 @@ import Aboutus from "./pages/Aboutus";
 import ForgotPassword from "./pages/ForgotPassword";
 import { UpdatePassword } from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
+import ContactUs from "./pages/ContactUs";
 
 function App() { 
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<OpenRoute><Signup/></OpenRoute>} />
         <Route path="/login" element={<OpenRoute><Login/></OpenRoute>} />
-        <Route path="/about" element={<OpenRoute><Aboutus/></OpenRoute>} />
+        <Route path="/about" element={<Aboutus/>} />
+        <Route path='/contact' element={<ContactUs/>} />
         <Route path="/forgot-password" element = {<OpenRoute><ForgotPassword/></OpenRoute>} />
         <Route path="/update-password/:token" element = {<OpenRoute><UpdatePassword/></OpenRoute>} />
         <Route path="/verify-email" element = {<OpenRoute><VerifyEmail/></OpenRoute>} />

@@ -10,7 +10,7 @@ const stats = [
 const Stats = () => {
   return (
     <section>
-        <div className='flex gap-36 bg-richblack-700 flex-wrap justify-center py-24 px-32'>
+        <div className='flex gap-36 bg-richblack-800 flex-wrap justify-center py-24 px-32'>
             {
                 stats.map( (data, index) => (
                     <div key={index} className=' flex flex-col items-center'>
