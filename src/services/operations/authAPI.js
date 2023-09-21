@@ -6,8 +6,29 @@ import { setUser } from "../../slices/profileSlice"
 
 
 export function sendOTP(email, navigate){
-    return (dispatch) => {
-        console.log("Otp send successfully", email)
+    return async (dispatch) => {
+        const toastId = toast.loading("Loading..")
+        dispatch(setLoading(true))
+        try{
+            const response = await apiConnector("POST", endpoints.SENDOTP_API, 
+            {email, checkUserPresent: true})
+
+            console.log("SENDOTP APi response...", response)
+            console.log(response.data)
+
+            if(!response.data.success){
+                throw new Error(response.data.message)
+            }
+
+            toast.success("OTP sent successfully")
+            navigate("/verify-email")
+
+        } catch(error){
+            console.log("SENDOTP API ERROR",error)
+            toast.error("COuld not send otp")
+        }
+        dispatch(setLoading(false))
+        toast.dismiss(toastId)
     }
 }
 
