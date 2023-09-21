@@ -32,6 +32,43 @@ export function sendOTP(email, navigate){
     }
 }
 
+export function signup(accountType, firstName,lastName, email, password, confirmPassword, otp,navigate){
+    return async (dispatch) =>{
+        const toastId = toast.loading("Loading...")
+        dispatch(setLoading(true))
+
+        try{
+            console.log("Ye otp ja raha he frontend se", otp )
+            const response = await apiConnector("POST", endpoints.SIGNUP_API,
+            {
+                accountType,
+                firstName,
+                lastName,
+                email,
+                password,
+                confirmPassword,
+                otp,
+            })
+
+            console.log("SIGN API RESPONSE", response)
+
+            if(!response.data.success){
+                throw new Error(response.data.message)
+            }
+
+            toast.success("Signup Failed")
+            navigate("/login")
+
+        } catch(error){
+            console.log("SIGNUP API ERROR....", error)
+            toast.error("Signup Failed")
+            navigate("/signup")
+        }
+        dispatch(setLoading(false))
+        toast.dismiss(toastId)
+    }
+}
+
 
 export function login(email,password,navigate){
     return async (dispatch) => {
