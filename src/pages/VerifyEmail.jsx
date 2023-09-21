@@ -80,7 +80,7 @@ const VerifyEmail = () => {
                         <Link to={"/login"}>
                             <div className=' text-richblack-5 text-base font-medium flex items-center  gap-1'>
                                 <BiArrowBack/>
-                                <p>Back to Login</p>
+                                <p className=' text-base text-richblack-5'>Back to Login</p>
                             </div>
                         </Link>
 
