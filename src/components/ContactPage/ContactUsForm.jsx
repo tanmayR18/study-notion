@@ -40,9 +40,9 @@ const ContactUsForm = () => {
     <form onSubmit={handleSubmit(submitContactForm)}>
         <div className='flex flex-col gap-6'>
             {/* First and last name */}
-            <div className='flex gap-5'>
+            <div className='flex flex-col lg:flex-row gap-5'>
                 {/* firstname */}
-                <div className='flex flex-col'>
+                <div className='flex w-full flex-col'>
                 <label
                 className=' text-richblack-5 text-sm mb-2'
                 htmlFor='firstName'>First Name</label>
@@ -63,7 +63,7 @@ const ContactUsForm = () => {
                 </div>
 
                 {/* Last Name */}
-                <div className='flex flex-col'>
+                <div className='flex w-full flex-col'>
                 <label
                 className=' text-richblack-5 text-sm mb-2'
                 htmlFor='lastName'>Last Name</label>
