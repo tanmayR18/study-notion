@@ -3,6 +3,7 @@ import { setLoading, setToken } from "../../slices/authSlice"
 import { apiConnector } from "../apiconnector"
 import { endpoints } from "../apis"
 import { setUser } from "../../slices/profileSlice"
+import { resetCart } from "../../slices/cartSlice"
 
 
 
@@ -141,3 +142,16 @@ export function resetPassword(password, confirmPassword, token, setPasswordUpdat
         dispatch(setLoading(false))
     }
 }
+
+export function logout(navigate) {
+    return (dispatch) => {
+      dispatch(setToken(null))
+      dispatch(setUser(null))
+      dispatch(resetCart())
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      toast.success("Logged Out")
+      navigate("/")
+    }
+  }
+  
