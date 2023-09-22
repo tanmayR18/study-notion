@@ -54,6 +54,7 @@ export const SignupForm = () => {
         dispatch(setSignupData(signUpData))
         //Send otp to user for verification
         dispatch(sendOTP(formData.email, navigate))
+        // console.log("Sign up data", signUpData)
 
         //Rest
         setFormData({

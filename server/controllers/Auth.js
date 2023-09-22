@@ -124,6 +124,9 @@ exports.signup = async(req,res) => {
         const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1)
         console.log("recent otp", recentOtp)
 
+        console.log("Backend me ye mela he ", otp)
+        console.log("Database se ye otp leya he ", recentOtp)
+
         //validate OTP 
         if(recentOtp.length == 0) {
             //OTP not found

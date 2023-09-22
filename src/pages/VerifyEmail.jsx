@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../components/common/Spinner'
 import OTPInput from 'react-otp-input'
 import { Link, useNavigate } from 'react-router-dom'
-import { sendOTP } from '../services/operations/authAPI'
+import { sendOTP, signup } from '../services/operations/authAPI'
+import {BiArrowBack} from "react-icons/bi"
+import {PiClockCounterClockwiseBold} from "react-icons/pi"
 
 const VerifyEmail = () => {
     const {signupData, loading} = useSelector( state => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [opt, setOtp] = useState("")
+    const [otp, setOtp] = useState("")
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -22,7 +24,18 @@ const VerifyEmail = () => {
             accountType
         } = signupData
 
-        // dispatch(signUp(accountType, firstName, lastName, email, password, confirmPassword, navigate))
+       
+
+        dispatch(
+            signup(
+                accountType,
+                firstName,
+                lastName, 
+                email, 
+                password, 
+                confirmPassword, 
+                otp,
+                navigate))
     }
 
     useEffect(() => {
@@ -37,32 +50,47 @@ const VerifyEmail = () => {
             loading ?
             <Spinner />
             :
-            <div>
-                <p>Verify Email</p>
-                <p>A verification code has been sent to you. Enter the code below</p>
-                <form onSubmit={submitHandler}>
-                    <OTPInput 
-                        value={opt}
-                        onChange={setOtp}
-                        numInputs={6}
-                        renderSeparator={<span>-</span>}
-                        renderInput={(props) => <input {...props} className=' bg-richblack-600' />}
-                    />
-                    <button>
-                        Verify Email
-                    </button>
-                </form>
+            <div className=' flex justify-center items-center h-[calc(100vh-56px)]'>
+                <div className=' flex flex-col gap-4 w-[30%]'>
+                    <p className=' font-semibold text-3xl text-richblack-5'>Verify Email</p>
+                    <p className=' text-richblack-100 font-normal text-lg'>A verification code has been sent to you. Enter the code below</p>
+                    <form className=' flex flex-col gap-4' onSubmit={submitHandler}>
+                        <OTPInput 
+                            value={otp}
+                            onChange={setOtp}
+                            numInputs={6}
+                            renderInput={(props) =>
+                            <input {...props}
+                            placeholder='-'
+                            style={{
+                                boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+                            }}
+                            className='w-[48px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] font-bold text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50' />}
+                            containerStyle={" flex gap-2 justify-center"}
 
-                <div>
-                    <div>
+                        />
+                        <button 
+                        className='rounded-[8px] bg-yellow-50 py-[8px] font-bold px-[12px] text-lg text-richblack-900'
+                        >
+                            Verify Email
+                        </button>
+                    </form>
+
+                    <div className=' flex justify-between'>
                         <Link to={"/login"}>
-                            <p>Back to Login</p>
+                            <div className=' text-richblack-5 text-base font-medium flex items-center  gap-1'>
+                                <BiArrowBack/>
+                                <p className=' text-base text-richblack-5'>Back to Login</p>
+                            </div>
                         </Link>
-                    </div>
 
-                    <button onClick={() => dispatch(sendOTP(signupData.email))}>
-                        Resend it
-                    </button>
+                        <button 
+                        className=' text-blue-100 text-base font-medium flex items-center  gap-1'
+                        onClick={() => dispatch(sendOTP(signupData.email))}>
+                            <PiClockCounterClockwiseBold/>
+                            <p>Resend it</p>
+                        </button>
+                    </div>
                 </div>
             </div>
         }
