@@ -9,6 +9,7 @@ import {BiArrowBack} from "react-icons/bi"
 const ForgotPassword = () => {
 
     const {loading} = useSelector( state => state.auth)
+    console.log(loading)
     const [emailSent, setEmailSent] = useState(false)
     const [email, setEmail] = useState("")
 
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
 
     function handleOnSubmit(event){
         event.preventDefault()
-        dispatch(getPasswordResetToken(email, setEmailSent))
+        dispatch(getPasswordResetToken(email, setEmailSent, loading))
     }
 
   return (
@@ -25,7 +26,7 @@ const ForgotPassword = () => {
             loading ?
             <Spinner/>
             :
-            <div className=' flex justify-center h-[calc(100vh-56px)] items-center'>
+            <div className={` flex justify-center h-[calc(100vh-56px)] ${loading ? "bg-caribbeangreen-400": ""} items-center`}>
                 <div className=' text-white w-[30%]  flex flex-col gap-3 justify-center'>
                     <h1 className=' font-bold text-3xl text-richblack-5'>
                         {

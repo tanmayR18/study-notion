@@ -57,6 +57,7 @@ exports.resetPassword = async(req,res) => {
         //data fetch
         //see how we can user params for getting the token 
         const {password, confirmPassword,token} = req.body
+        console.log("Backend me ye mila he ", {password, confirmPassword,token})
         
         //validation
         if(password !== confirmPassword){

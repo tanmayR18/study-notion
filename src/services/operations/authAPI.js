@@ -5,6 +5,7 @@ import { endpoints } from "../apis"
 import { setUser } from "../../slices/profileSlice"
 
 
+
 export function sendOTP(email, navigate){
     return async (dispatch) => {
         const toastId = toast.loading("Loading..")
@@ -99,13 +100,13 @@ export function login(email,password,navigate){
     }
 }
 
-export function getPasswordResetToken(email, setEmailSent){
+export function getPasswordResetToken(email, setEmailSent, loading){
     return async(dispatch) => {
         dispatch(setLoading(true))
         try{
             const response = await apiConnector("POST", endpoints.RESETPASSTOKEN_API, {email})
             console.log("reset password token response", response)
-            
+            console.log("Loading in try", loading)
             if(!response.data.success) {
                 throw new Error(response.data.message)
             }
@@ -116,21 +117,22 @@ export function getPasswordResetToken(email, setEmailSent){
             console.log(`Error in resetting the passsword ${error}`);
             toast.error("Failed to send the email")
         }
-        setLoading(false)
+        dispatch(setLoading(false))
     }
 }
 
-export function resetPassword(password, confirmPassword, token){
+export function resetPassword(password, confirmPassword, token, setPasswordUpdated){
     return async(dispatch) =>{
         dispatch(setLoading(true))
         try{
+            console.log("Frontend se ye ja raha he ",{ password, confirmPassword, token})
             const response = await apiConnector("POST", endpoints.RESETPASSWORD_API, { password, confirmPassword, token})
             console.log("Response of reset password", response)
 
             if(!response.data.success){
                 throw new Error(response.data.message)
             }
-
+            setPasswordUpdated(true)
             toast.success("Password reset successfully")
         } catch(error){
             console.error(error)
