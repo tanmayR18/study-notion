@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import { UpdatePassword } from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
 import ContactUs from "./pages/ContactUs";
+import Error from "./components/common/Error";
 
 function App() { 
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/forgot-password" element = {<OpenRoute><ForgotPassword/></OpenRoute>} />
         <Route path="/update-password/:token" element = {<OpenRoute><UpdatePassword/></OpenRoute>} />
         <Route path="/verify-email" element = {<OpenRoute><VerifyEmail/></OpenRoute>} />
+        <Route path="*" element = {<Error/>} />
       </Routes>
     </div>
   );
