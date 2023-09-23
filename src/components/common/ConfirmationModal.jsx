@@ -1,5 +1,6 @@
 import React from 'react'
 import IconBtn from './IconBtn'
+import { useDispatch } from 'react-redux'
 
 const ConfirmationModal = ({modalData}) => {
   return (
@@ -13,7 +14,7 @@ const ConfirmationModal = ({modalData}) => {
             </p>
             <div className=' flex items-center gap-x-4'>
                 <IconBtn
-                    onClick = {modalData?.btn1Handler}
+                    onclick = {modalData?.btn1Handler}
                     text={modalData?.btn1Text}
                  />
 
