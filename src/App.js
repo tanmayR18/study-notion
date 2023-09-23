@@ -13,6 +13,7 @@ import ContactUs from "./pages/ContactUs";
 import Error from "./components/common/Error";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
+import MyProfile from "./components/core/Dashboard/MyProfile";
 
 function App() { 
   return (
@@ -27,7 +28,9 @@ function App() {
         <Route path="/forgot-password" element = {<OpenRoute><ForgotPassword/></OpenRoute>} />
         <Route path="/update-password/:token" element = {<OpenRoute><UpdatePassword/></OpenRoute>} />
         <Route path="/verify-email" element = {<OpenRoute><VerifyEmail/></OpenRoute>} />
-        <Route element = {<PrivateRoute><Dashboard/></PrivateRoute>}
+        <Route element = {<PrivateRoute><Dashboard/></PrivateRoute>}>
+            <Route path="dashboard/my-profile" element={<MyProfile/>} />
+        </Route>
         <Route path="*" element = {<Error/>} />
       </Routes>
     </div>
