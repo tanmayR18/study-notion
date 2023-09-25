@@ -21,7 +21,7 @@ const SideBar = () => {
         return <Spinner/>
     }
   return (
-    <div>
+    <>
         <div className=' flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-richblack-700 bg-richblack-800 py-10'>
             <div className=' flex flex-col'>
                 {
@@ -65,7 +65,7 @@ const SideBar = () => {
             </div>
         </div>
         {confirmationModal && <ConfirmationModal modalData={confirmationModal} /> }
-    </div>
+    </>
   )
 }
 
