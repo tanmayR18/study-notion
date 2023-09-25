@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IconBtn from '../../../common/IconBtn'
 import {FiUpload} from "react-icons/fi"
+import { updateDisplayPicture } from "../../../../services/operations/SettingsAPI"
 
 const ChangeProfilePicture = () => {
 
@@ -46,8 +47,8 @@ const ChangeProfilePicture = () => {
             const formData = new FormData()
             formData.append("displayPicture", imageFile)
             console.log("formData", formData)
-            // dispatch(updateDisplayPicture(token, formData))
-            //     .then(() => setLoading(false))
+            dispatch(updateDisplayPicture(token, formData))
+                .then(() => setLoading(false))
             setLoading(false)
         } catch(error){
             console.log("Error Message", error.message)
