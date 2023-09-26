@@ -255,12 +255,13 @@ exports.login = async(req, res) => {
 
     exports.changePassword = async(req,res) => {
         try{
+            const id = req.user.id
             // fetch data from the body
 
             //If this fucntion is used inside the profile i.e the user is already logged in 
             //then we can use email from the token rather than sending manually
 
-            const {email, oldPassword, confirmPassword, newPassword} = req.body;
+            const {confirmPassword, newPassword} = req.body;
             
             //match the password 
             // - password entered by the user
@@ -272,18 +273,20 @@ exports.login = async(req, res) => {
 
             }
             // - password comparison with db
-            const userDetails = await User.findOne({email:email})
-            if(!bcrypt.compare(oldPassword,userDetails.password)){
-                return res.status(401).json({
-                    success:false,
-                    message: 'Enter the correct Old Password'
-                })
-            }
+            // const userDetails = await User.findOne({email:email})
+            // if(!bcrypt.compare(oldPassword,userDetails.password)){
+            //     return res.status(401).json({
+            //         success:false,
+            //         message: 'Enter the correct Old Password'
+            //     })
+            // }
+
+            // const userDetails = await User.findById(id)
  
             // hashing of password and Update the db
             try{
                 const hashedPassowrd = await bcrypt.hash(newPassword,10)
-                const updatedUserDetails = await User.findOneAndUpdate({email:email},
+                const updatedUserDetails = await User.findByIdAndUpdate(id,
                     {password:hashedPassowrd},
                     {new:true})
 

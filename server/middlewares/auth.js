@@ -8,7 +8,7 @@ exports.auth = async(req, res, next) => {
         //extract token
         const token = req.cookies.token 
                         || req.body.token
-                        || req.header("Authorisation").replace("Brearer ","")
+                        || req.header("Authorization").replace("Bearer ","")
         //if token missing, then return response
         if(!token){
             return res.status(401).json({
@@ -35,6 +35,7 @@ exports.auth = async(req, res, next) => {
         next()
     }
     catch(error){
+        console.log(error);
         return res.status(401).json({
             success:false,
             message:'Something went wrong while validating the token',

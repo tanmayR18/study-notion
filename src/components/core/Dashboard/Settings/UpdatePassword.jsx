@@ -10,8 +10,9 @@ const UpdatePassword = () => {
     const { token } = useSelector( state => state.auth)
     const navigate = useNavigate()
 
-    const [showOldPassword, setShowOldPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [showNewPassword, setShowNewPassword] = useState(false)
+
 
     const {
         register,
@@ -34,36 +35,6 @@ const UpdatePassword = () => {
                 <h2 className=' text-lg font-semibold text-richblack-600'>Password</h2>
                 <div className=' flex flex-col gap-5 lg:flex-row '>
                     <div className='relative flex flex-col gap-2 lg:w-[48%]'>
-                        <label htmlFor='oldPassword' className='label-style'>
-                            Current Password
-                        </label>
-                        <input 
-                            type={showNewPassword ? "text" : "password"}
-                            name='oldPassword'
-                            id='oldPassword'
-                            placeholder='Enter Current Password'
-                            className='form-style'
-                            {...register("oldPassword",{required: true})}
-                        />
-                        <span 
-                            onClick={() => setShowOldPassword( prev => !prev)}
-                            className=' absolute right-3 top-[38px] z-[10] cursor-pointer'
-                        >
-                            {showOldPassword ? (
-                                <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' /> 
-                            ) :
-                            <AiOutlineEye fontSize={24} fill='#AFB2BF'/>}
-                        </span>
-                        {
-                            errors.oldPassword && (
-                                <span className=' -mt-1 text-[12px] text-yellow-100'>
-                                    Please enter your current password
-                                </span>
-                            )
-                        }
-                    </div>
-
-                    <div className='relative flex flex-col gap-2 lg:w-[48%]'>
                         <label htmlFor='newPassword' className='label-style'>
                             New Password
                         </label>
@@ -76,10 +47,10 @@ const UpdatePassword = () => {
                             {...register("newPassword",{required: true})}
                         />
                         <span 
-                            onClick={() => setShowOldPassword( prev => !prev)}
-                            className=' absolute right-3 top-[38px] z-[10] cursor-pointer'
+                            onClick={() => setShowNewPassword( prev => !prev)}
+                            className=' absolute right-3 top-[55%] z-[10] cursor-pointer'
                         >
-                            {showOldPassword ? (
+                            {showNewPassword ? (
                                 <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' /> 
                             ) :
                             <AiOutlineEye fontSize={24} fill='#AFB2BF'/>}
@@ -87,7 +58,37 @@ const UpdatePassword = () => {
                         {
                             errors.newPassword && (
                                 <span className=' -mt-1 text-[12px] text-yellow-100'>
-                                    Please enter your New password
+                                    Please enter your new password
+                                </span>
+                            )
+                        }
+                    </div>
+
+                    <div className='relative flex flex-col gap-2 lg:w-[48%]'>
+                        <label htmlFor='confirmPassword' className='label-style'>
+                            Confirm Password
+                        </label>
+                        <input 
+                            type={showConfirmPassword ? "text" : "password"}
+                            name='confirmPassword'
+                            id='confirmPassword'
+                            placeholder='Enter Confirm Password'
+                            className='form-style'
+                            {...register("confirmPassword",{required: true})}
+                        />
+                        <span 
+                            onClick={() => setShowConfirmPassword( prev => !prev)}
+                            className=' absolute right-3 top-[55%] z-[10] cursor-pointer'
+                        >
+                            {showConfirmPassword ? (
+                                <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' /> 
+                            ) :
+                            <AiOutlineEye fontSize={24} fill='#AFB2BF'/>}
+                        </span>
+                        {
+                            errors.confirmPassword && (
+                                <span className=' -mt-1 text-[12px] text-yellow-100'>
+                                    Please enter  confirm password
                                 </span>
                             )
                         }

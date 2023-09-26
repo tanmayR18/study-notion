@@ -1,11 +1,12 @@
 const Course = require("../models/Course");
 const Profile = require("../models/Profile");
+const RatingAndReview = require("../models/RatingAndReview");
 const User = require("../models/User");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 // Method for updating a profile
 exports.updateProfile = async (req, res) => {
 	try {
-		const { dateOfBirth = "", about = "", contactNumber,gender="" } = req.body;
+		const { dateOfBirth = "", about = "", contactNumber,gender="", firstName="", lastName="" } = req.body;
 		const id = req.user.id;
 
 		// Find the profile by id
@@ -18,13 +19,20 @@ exports.updateProfile = async (req, res) => {
 		profile.contactNumber = contactNumber;
 		profile.gender = gender;
 
+        // Update the User Fields
+        userDetails.firstName = firstName;
+        userDetails.lastName = lastName;
+
 		// Save the updated profile
 		await profile.save();
+
+        // Save the updated profile
+		await userDetails.save();
 
 		return res.json({
 			success: true,
 			message: "Profile updated successfully",
-			profile,
+			updatedUserDetails: Object.assign(profile, userDetails)
 		});
 	} catch (error) {
 		console.log(error);
@@ -42,8 +50,9 @@ exports.deleteAccount = async (req, res) => {
 		// 	console.log("The answer to life, the universe, and everything!");
 		// });
 		// console.log(job);
+        console.log("Inside deleted Account controller")
 		const id = req.user.id;
-		const user = await User.findById({ _id: id });
+		const user = await User.findById(id);
 		if (!user) {
 			return res.status(404).json({
 				success: false,
@@ -52,8 +61,27 @@ exports.deleteAccount = async (req, res) => {
 		}
 		// Delete Assosiated Profile with the User
 		await Profile.findByIdAndDelete({ _id: user.additionalDetails });
-		// TODO: Unenroll User From All the Enrolled Courses
+
+        // TODO: Unenroll User From All the Enrolled Courses
         
+        // Delete all the users rating and review
+        await RatingAndReview.findByIdAndDelete(id)
+
+        // Unenroll user from all the courses
+        if(user.courses.length > 10){
+            for(const course of user.courses){
+                await Course.findByIdAndUpdate(
+                    { _id: course },
+                    {
+                      $pull: {
+                        studentEnrolled: id,
+                      },
+                    }
+                  )
+            }
+        }
+        
+
 		// Now Delete User
 		await User.findByIdAndDelete({ _id: id });
 		res.status(200).json({
@@ -104,7 +132,7 @@ exports.updateDisplayPicture = async (req, res) => {
         { image: image.secure_url },
         { new: true }
       )
-      res.send({
+      res.status(200).json({
         success: true,
         message: `Image Updated successfully`,
         data: updatedProfile,
