@@ -147,6 +147,7 @@ exports.updateDisplayPicture = async (req, res) => {
   
 exports.getEnrolledCourses = async (req, res) => {
     try {
+        console.log("Inside get enrolled courses")
       const userId = req.user.id
       const userDetails = await User.findOne({
         _id: userId,
