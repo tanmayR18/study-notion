@@ -16,6 +16,19 @@ export const settingsEndpoints = {
     DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
   }
 
+//PROFILE ENGPOINTS
+export const profileEndPoints = {
+    GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
+    GET_USER_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourse"
+}
+
+// STUDENTS ENDPOINTS
+export const studentEndpoints = {
+    COURSE_PAYMENT_API: BASE_URL + "/payment/capturePayment",
+    COURSE_VERIFY_API: BASE_URL + "/payment/verifyPayment",
+    SEND_PAYMENT_SUCCESS_EMAIL_API: BASE_URL + "/payment/sendPaymentSuccessEmail",
+  }
+
 export const categories = {
     CATEGORIES_API: BASE_URL + "/course/showAllCategories"
 }
