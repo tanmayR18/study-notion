@@ -30,7 +30,7 @@ const EnrolledCourse = () => {
         {
             !enrolledCourses ? 
             <Spinner/> : 
-            !enrolledCourses ? 
+            !enrolledCourses.length > 0 ? 
                 <p className=' text-center mt-10 text-lg font-medium tracking-wider'>
                     You haven't enrolled in any course yet
                 </p> :
