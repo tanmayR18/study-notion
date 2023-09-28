@@ -2,6 +2,7 @@ import React from 'react'
 import * as Icons from "react-icons/vsc"
 import { useDispatch } from 'react-redux'
 import { NavLink, matchPath, useLocation } from 'react-router-dom'
+import { resetCourseState } from "../../../slices/courseSlice"
 
 const SidebarLink = ({link, iconName}) => {
     const Icon = Icons[iconName]
@@ -15,7 +16,7 @@ const SidebarLink = ({link, iconName}) => {
   return (
     <NavLink
     to={link.path}
-    // onClick={() => dispatch(resetCourseState())}
+    onClick={() => dispatch(resetCourseState())}
     className={`relative px-8 py-2 text-sm font-medium 
     ${
         matchRoute(link.path) ?
