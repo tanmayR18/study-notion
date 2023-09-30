@@ -221,7 +221,8 @@ exports.editCourse = async(req, res) => {
 exports.getAllCourses = async (req, res) => {
     try{
         //TODO: change the below statement incrementally
-        const allCourses = await Course.find({},
+        const allCourses = await Course.find(
+            { status: "Published"},
             {
 				courseName: true,
 				price: true,
@@ -236,8 +237,8 @@ exports.getAllCourses = async (req, res) => {
          
         return res.status(200).json({
             success:true,
-                message:'Data for all courses fetched successfully',
-                data:allCourses,
+            message:'Data for all courses fetched successfully',
+            data:allCourses,
         })
     } catch(error) {
         console.log(error);
