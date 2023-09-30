@@ -143,6 +143,79 @@ exports.createCourse = async(req, res) => {
     }
 }
 
+//Edit course details
+exports.editCourse = async(req, res) => {
+    try{
+        const {courseId} = req.body
+        const updates = req.body
+        const course = await Course.findById(courseId)
+
+        if(!course){
+            return res.status(404).json({
+                success:false,
+                message: "Course Not found",
+                error: "Course Not found"
+            })
+        }
+
+        // If thumbnail image is found, update it 
+        if(req.files){
+            console.log("Thumbnail update")
+            const thumbnail = req.files.thumbnailImage
+            const thumbanailImage = await uploadImageToCloudinary(
+                thumbnail,
+                process.env.FOLDER_NAME
+            )
+            course.thumbnail = thumbanailImage.secure_url
+        }
+
+        //update only the fields that are present in the request
+        for(const key in updates) {
+            if(updates.hasOwnProperty(key)){
+                if(key === "tag" || key === "instruction") {
+                    course[key] === JSON.parse(updates[key])
+                } else {
+                    course[key] = updates[key]
+                }
+            }
+        }
+
+        await course.save()
+
+        const updatedCourse = await Course.findOne({
+            _id: courseId,
+        }).populate({
+            path: "instructor",
+            populate: {
+                path: "additionalDetails"
+            },
+        })
+        .populate("category")
+        .populate("ratingAndReviews")
+        .populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            }
+        })
+        .exec()
+
+        res.json({
+            success: true,
+            message: "Course updated successfully",
+            data: updatedCourse
+        })
+
+    } catch(error){
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        })
+    }
+}
+
 //getAll courses 
 
 exports.getAllCourses = async (req, res) => {
