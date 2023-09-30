@@ -367,5 +367,5 @@ export const createRating = async( data, token ) => {
         toast.error(error.message)
     }
     toast.dismiss(toastId)
-    return result
+    return success
 }   
