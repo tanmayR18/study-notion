@@ -1,6 +1,8 @@
 const Course = require('../models/Course')
 const Category = require('../models/Category')
 const User = require('../models/User')
+const Section = require("../models/Section")
+const SubSection = require("../models/SubSection")
 const {uploadImageToCloudinary} = require('../utils/imageUploader')
 const { convertSecondsToDuration } = require('../utils/secToDuration')
 const CourseProgress = require("../models/CourseProgress")
@@ -422,7 +424,60 @@ exports.getInstructorCourses = async(req, res) => {
     }
 }
 
-//
+//Delete the course
+exports.deleteCourse = async(req, res) => {
+    try{
+        const { courseId} = req.body
+
+        // Find the course
+        const course = await Course.findById(courseId)
+        if(!course) {
+            return res.status(404).json({
+                success:false,
+                message:"No such course found",
+            })
+        }
+
+        //Unenroll students from the course
+        const studentsEnrolled = course.studentEnrolled
+        for(const studenId of studentsEnrolled){
+            await User.findByIdAndUpdate(studenId, {
+                $pull:{courses : courseId},
+            })
+        }
+
+        // Delete section and subsection
+        const courseSections = course.courseContent
+        for(const sectionId of courseSection) {
+            // Delete sub-section of the section
+            const section = await Section.findById(sectionId)
+            if(section){
+                const subSection = section.subSection
+                for(const subSectionId of subSection){
+                    await SubSection.findByIdAndUpdate(subSectionId)
+                }
+            }
+            //Delete the section
+            await Section.findByIdAndDelete(sectionId)
+        }
+
+        // Delete the course 
+        await Course.findByIdAndDelete(courseId)
+
+        return res.status(200).json({
+            success: true,
+            message: "Course deleted successfully",
+        })
+
+    } catch(error){
+        console.error(error)
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        })
+    }
+}
 
 // Top 10 courses
 exports.getTop10Courses = async(req, res) => {
