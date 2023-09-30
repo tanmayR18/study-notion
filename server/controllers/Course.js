@@ -4,19 +4,44 @@ const User = require('../models/User')
 const {uploadImageToCloudinary} = require('../utils/imageUploader')
 
 
-//createCOurse handler funtion
+// Function to create a course
 exports.createCourse = async(req, res) => {
     try{
         //fetch data 
-        let {courseName, courseDescription, whatYouWillLearn,status, price,tag, category,instructions} = req.body
+        let {
+            courseName, 
+            courseDescription, 
+            whatYouWillLearn,
+            status, 
+            price,
+            //here are the changes
+            tag: _tag, 
+            category,
+            instructions: _instructions
+        } = req.body
 
         const userId = req.user.id;
 
         //get thumbnail
         const thumbnail = req.files.thumbnailImage;
 
+        //COnvert the tag and instructions from stringified arrag to array
+        const tag = JSON.parse(_tag)
+        const instructions = JSON.parse(_instructions)
+
+        console.log("tag", tag)
+        console.log("instructions", instructions)
+
         //validation
-        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail) {
+        if(
+            !courseName ||
+            !courseDescription || 
+            !whatYouWillLearn || 
+            !price || 
+            !tag.length ||
+            !instructions.length ||
+            !category || 
+            !thumbnail) {
             return res.status(400).json({
                 success:false,
                 message:'All fields are required',
@@ -60,11 +85,11 @@ exports.createCourse = async(req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYouWillLearn,
             price,
-            tag:tag,
+            tag,
             category:categoryDetails._id,
             thumbnail:thumbnailImage.secure_url,
             status: status,
-			instructions: instructions,
+			instructions,
         })
 
         //add the new course to the user schema of Instrutor
@@ -78,19 +103,31 @@ exports.createCourse = async(req, res) => {
             {new:true}
         )
 
+        //Here is some changes
         //update the category schema
         //TODO: HW
         //check whether there should me aarays of courses in category
-        await Category.findOneAndUpdate(
-            {name:categoryDetails.name},
-            {
-                $push: {
-                    course: newCourse._id
-                }
-            },
-            {new:true}
-        )
+        // await Category.findOneAndUpdate(
+        //     {name:categoryDetails.name},
+        //     {
+        //         $push: {
+        //             course: newCourse._id
+        //         }
+        //     },
+        //     {new:true}
+        // )
         // Return the new course and a success message
+
+        // Add the new couese to the Categories
+        const categoryDetails2 = await Category.findByIdAndUpdate(
+            {_id: category},
+            {
+                $push:{
+                    course: newCourse._id
+                },
+            },{new: true}
+        )
+
 		res.status(200).json({
 			success: true,
 			data: newCourse,
