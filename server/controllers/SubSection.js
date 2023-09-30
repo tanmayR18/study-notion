@@ -38,7 +38,7 @@ exports.createSubSection = async (req, res) => {
         return res.status(200).json({
             succcess:true,
             message:'Sub Section Created Successfully',
-            updatedSection,
+            data:updatedSection,
         });
     } catch(error){
         return res.status(500).json({
@@ -52,7 +52,7 @@ exports.createSubSection = async (req, res) => {
 //HW updateSubSection
 exports.updateSubSection = async (req, res) => {
     try {
-      const { subSectionId, title, description } = req.body
+      const { sectionId, subSectionId, title, description } = req.body
       const subSection = await SubSection.findById(subSectionId)
   
       if (!subSection) {
@@ -80,10 +80,13 @@ exports.updateSubSection = async (req, res) => {
       }
   
       await subSection.save()
+
+      const updatedSection = await Section.findById(sectionId)
   
-      return res.json({
+      return res.status(200).json({
         success: true,
         message: "Section updated successfully",
+        data: updatedSection
       })
     } catch (error) {
       console.error(error)
@@ -115,9 +118,12 @@ exports.deleteSubSection = async (req, res) => {
           .status(404)
           .json({ success: false, message: "SubSection not found" })
       }
+
+      const updatedSection = await Section.findById(sectionId)
   
       return res.json({
         success: true,
+        data: updatedSection,
         message: "SubSection deleted successfully",
       })
     } catch (error) {
