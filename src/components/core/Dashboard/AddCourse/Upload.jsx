@@ -47,6 +47,7 @@ const Upload = ({
     const previewFile = (file) => {
         // console.log(file)
         const reader = new FileReader()
+        reader.readAsDataURL(file)
         reader.onloadend = () => {
             setPreviewSource(reader.result)
         }
@@ -92,6 +93,7 @@ const Upload = ({
                             !viewData && (
                                 <button
                                 type='button'
+                                className=' mt-4'
                                 onClick={ () => {
                                     setPreviewSource("")
                                     setSelectedFile(null)

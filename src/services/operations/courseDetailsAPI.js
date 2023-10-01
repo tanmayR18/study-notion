@@ -32,7 +32,7 @@ export const getAllCourses = async () => {
         if(!response?.data?.success){
             throw new Error('Could not fetch Course Categories')
         }
-        result - response?.data?.data
+        result = response?.data?.data
     } catch(error){
         console.log("GET_ALL_COURSE_API error",error)
         toast.error(error.message)
@@ -334,8 +334,8 @@ export const markLectureAsCompleted = async(data, token) => {
         const response = await apiConnector("POST", LECTURE_COMPLETION_API, data, 
         {   Authorization: `Bearer ${token}`,})
 
-        console.log("MARK LECTURE COMPLETED API RESPONSE...", error)
-        toast.error(error.message)
+        console.log("MARK LECTURE COMPLETED API RESPONSE...", response)
+        toast.success("Lecture completed")
         result = true
     } catch(error){
         console.log("MARK LECRTURE AS COMPLETE API API ERROR...", error)

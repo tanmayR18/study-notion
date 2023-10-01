@@ -2,7 +2,11 @@ import React from 'react'
 
 const CourseBuilderForm = () => {
   return (
-    <div>CourseBuilderForm</div>
+    <div className=' text-white'>
+
+        Welcome to the step 2
+
+    </div>
   )
 }
 

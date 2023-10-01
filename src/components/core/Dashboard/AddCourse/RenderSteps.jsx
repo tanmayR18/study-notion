@@ -29,8 +29,9 @@ const RenderSteps = () => {
                 steps.map( item => (
                     <>
                         <div 
-                        className=' flex flex-col items-center'
                         key={item.id}
+                        className=' flex flex-col items-center'
+                        
                         >
                             <button
                             className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] 
@@ -77,8 +78,9 @@ const RenderSteps = () => {
                 steps.map( item => (
                     <>
                         <div
+                         key={item.id}
                         className=' flex min-w-[130px] flex-col items-center gap-y-2'
-                        key={item.id}
+                        
                         >   
                             <p className={` text-sm
                             ${
