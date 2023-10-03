@@ -300,15 +300,16 @@ export const deleteCourse = async( data, token) => {
 }   
 
 //get full details of course
-export const getFullDetailsOfCourse = async(couseId, token) => {
+export const getFullDetailsOfCourse = async(courseId, token) => {
     const toastId = toast.loading("Loading....")
     let result = null
     try{
+        console.log("Course id inside the course api", courseId)
         const response = await apiConnector(
             "POST",
             GET_FULL_COURSE_DETAILS_AUTHENTICATED,
             {
-                couseId,
+                courseId,
             },
             // headers
             {Authorization :`Bearer ${token}`},

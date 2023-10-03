@@ -342,7 +342,7 @@ exports.getFullCourseDetails = async(req, res) => {
             },
         })
         .populate("category")
-        .populate("ratingAndReview")
+        .populate([{ path: "ratingAndReview", strictPopulate: false}])
         .populate({
             path: "courseContent",
             populate: {
@@ -448,7 +448,7 @@ exports.deleteCourse = async(req, res) => {
 
         // Delete section and subsection
         const courseSections = course.courseContent
-        for(const sectionId of courseSection) {
+        for(const sectionId of courseSections) {
             // Delete sub-section of the section
             const section = await Section.findById(sectionId)
             if(section){
