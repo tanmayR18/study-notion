@@ -8,7 +8,8 @@ exports.createSubSection = async (req, res) => {
         //fetch the data from body
         const {sectionId, title, description} = req.body
         //extract file/video
-        const video = req.files.videoFile
+        const video = req.files.video
+        console.log("Video in file ", video)
         //validation
         if(!sectionId || !title || !description || !video) {
             return res.status(400).json({
@@ -36,7 +37,7 @@ exports.createSubSection = async (req, res) => {
         //HW: log updated section here, after adding populate query
         //return response
         return res.status(200).json({
-            succcess:true,
+            success:true,
             message:'Sub Section Created Successfully',
             data:updatedSection,
         });
@@ -81,7 +82,7 @@ exports.updateSubSection = async (req, res) => {
   
       await subSection.save()
 
-      const updatedSection = await Section.findById(sectionId)
+      const updatedSection = await Section.findById(sectionId).populate("subSection")
   
       return res.status(200).json({
         success: true,
@@ -103,6 +104,7 @@ exports.updateSubSection = async (req, res) => {
 exports.deleteSubSection = async (req, res) => {
     try {
       const { subSectionId, sectionId } = req.body
+      console.log("", subSectionId, sectionId)
       await Section.findByIdAndUpdate(
         { _id: sectionId },
         {
@@ -119,7 +121,7 @@ exports.deleteSubSection = async (req, res) => {
           .json({ success: false, message: "SubSection not found" })
       }
 
-      const updatedSection = await Section.findById(sectionId)
+      const updatedSection = await Section.findById(sectionId).populate("subSection")
   
       return res.json({
         success: true,

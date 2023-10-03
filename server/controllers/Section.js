@@ -92,7 +92,9 @@ exports.updateSection = async(req, res) => {
 exports.deleteSection = async (req, res) => {
     try{
         //get ID - assuming that we are sending ID in params
-        const {sectionId, courseId} = req.params
+        // const {sectionId, courseId} = req.params
+        const { sectionId, courseId} = req.body
+        console.log("Inside section", sectionId, courseId)
         // const {courseId} = req.body
         // console.log(
         //     "params",paramsValue
@@ -128,7 +130,7 @@ exports.deleteSection = async (req, res) => {
             path:"courseContent",
             populate: {
                 path: "subSection"
-            }
+            }  
         }).exec()
 
         //return response
