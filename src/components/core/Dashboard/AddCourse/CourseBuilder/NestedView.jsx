@@ -59,7 +59,7 @@ const NestedView = ({ handleChangedEditSectionName }) => {
             {
                 course?.courseContent?.map( section => (
                     // Section dropDown
-                    <detail key = {section._id} open>
+                    <details key = {section._id} open>
                         {/* Section dropDown content */}
                         <summary className='flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2'>
                             <div className=' flex items-center gap-x-3'>
@@ -153,7 +153,7 @@ const NestedView = ({ handleChangedEditSectionName }) => {
                                 <p>Add Lecture</p>
                             </button>
                         </div>
-                    </detail>
+                    </details>
                 ))
             }
         </div>
