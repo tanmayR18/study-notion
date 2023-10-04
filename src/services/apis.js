@@ -50,7 +50,12 @@ export const courseEndpoints = {
     CREATE_RATING_API: BASE_URL + "/course/createRating",
 }
 
-
+// Categories api
 export const categories = {
     CATEGORIES_API: BASE_URL + "/course/showAllCategories"
+}
+
+//Catalog page data
+export const catalogData = {
+    CATALOGPAGEDATA_API: BASE_URL + "/course/getCategoryPageDetails"
 }

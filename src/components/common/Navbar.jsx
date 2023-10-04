@@ -97,7 +97,7 @@ const Navbar = () => {
                                             {
                                                 subLinks.length ? (
                                                     subLinks.map( (subLink, index) => (
-                                                        <Link to={subLink.name.split(" ").join("-").toLowerCase()} key={index}>
+                                                        <Link to={"/catalog/" + subLink.name.split(" ").join("-").toLowerCase()} key={index}>
                                                             <p className=' hover:bg-richblack-25 rounded-md py-4 px-4 font-semibold'>{subLink.name}</p>
                                                         </Link>
                                                     ))
