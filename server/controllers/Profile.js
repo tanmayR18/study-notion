@@ -1,4 +1,5 @@
 const Course = require("../models/Course");
+const CourseProgress = require("../models/CourseProgress");
 const Profile = require("../models/Profile");
 const RatingAndReview = require("../models/RatingAndReview");
 const User = require("../models/User");
@@ -81,6 +82,8 @@ exports.deleteAccount = async (req, res) => {
             }
         }
         
+        // Delete courseProgress of the user
+        await CourseProgress.deleteMany({userId: id})
 
 		// Now Delete User
 		await User.findByIdAndDelete({ _id: id });
