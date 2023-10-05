@@ -81,7 +81,7 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
         console.log("PAYMENT API ERROR....", error)
         toast.error("Could not make payment")
     }
-    toast.dismiss("Could not make payment")
+    toast.dismiss (toastId)
 }
 
 
@@ -107,6 +107,8 @@ async function verifyPayment( bodyData, token, navigate, dispatch) {
         const response = await apiConnector("POST", COURSE_VERIFY_API, bodyData, {
             Authorization:`Bearer ${token}`,
         })
+
+        console.log(response)
 
         if(!response.data.success) {
             throw new Error(response.data.message)

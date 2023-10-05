@@ -1,6 +1,6 @@
 const {instance} = require('../config/razorpay')
 const Course = require('../models/Course')
-const User = require('../models/Course')
+const User = require('../models/User')
 const mailSender = require('../utils/mailSender')
 const {courseEnrollmentEmail} = require('../mail/templates/courseEnrollmentEmail')
 const { default: mongoose } = require('mongoose')
@@ -12,6 +12,8 @@ const { paymentSuccessEmail } = require('../mail/templates/paymentSuccessEmail')
 //initiate the razorpay order
 exports.capturePayment = async(req, res) => {
     
+    console.log("yaha taak phoch gaya ")
+
     const { courses } = req.body
     const userId = req.user.id
 
@@ -57,7 +59,7 @@ exports.capturePayment = async(req, res) => {
     const curreny = "INR"
     const options = {
         amount: totalAmount*100, 
-        curreny,
+        // curreny,
         receipt: Math.random(Date.now()).toString()
     }
 
@@ -96,15 +98,20 @@ exports.verifyPayment = async(req, res) => {
         })
     }
 
-    let body = razorpay_order_id + "|" + razorpay_signature
+    
+
+    let body = razorpay_order_id + "|" + razorpay_payment_id
+    console.log("frontend se aaya hua data ", body)
     const expectedSignature = crypto
     .createHmac('sha256', process.env.RAZORPAY_SECRET)
     .update(body.toString())
     .digest("hex")
 
+    console.log("Payment verified",expectedSignature === razorpay_signature)
+
     if(expectedSignature === razorpay_signature){
         // enroll the students
-        await enrollStudents(course, userId, res);
+        await enrollStudents(courses, userId, res);
 
         // return res
         return res.status(200).json({
@@ -146,12 +153,15 @@ const enrollStudents = async(courses, userId, res) => {
                 })
             }
 
+
             //Find the student and add the course to their list of enrolled courses
-            const enrolledStudent = await User.findByIdAndUpdate(
-                userId,
-                {$push: {courses: courseId}},
-                { new :true}
-            )
+            const enrolledStudent = await User.findByIdAndUpdate(userId,
+                {$push:{
+                    courses: courseId,
+                }},{new:true})
+
+            console.log("Student ID", userId)
+            console.log("Enrolled student", enrolledStudent)
 
             // send Confirmation email to student
             const emailResponse = await mailSender(

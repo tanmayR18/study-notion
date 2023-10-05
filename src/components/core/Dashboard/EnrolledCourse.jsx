@@ -25,8 +25,8 @@ const EnrolledCourse = () => {
     },[])
 
   return (
-    <div className=' text-white'>
-        <div className=' text-3xl text-richblack-100 font-medium' >Enrolled Courses</div>
+    <div className=''>
+        <div className=' text-3xl text-richblack-100' >Enrolled Courses</div>
         {
             !enrolledCourses ? 
             <Spinner/> : 
@@ -35,7 +35,7 @@ const EnrolledCourse = () => {
                     You haven't enrolled in any course yet
                 </p> :
 
-                <div className=' bg-white rounded-lg overflow-hidden'>
+                <div className='rounded-lg overflow-hidden'>
                     <div className=' flex  bg-richblack-700 text-richblack-50 text-sm font-medium p-4'>
                         <p className=' w-1/2'>Course Name</p>
                         <p className='w-1/4'>Durations</p>
