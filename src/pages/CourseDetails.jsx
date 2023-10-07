@@ -44,7 +44,10 @@ const CourseDetails = () => {
     const [avgReviewCount, setAverageReviewCount] = useState(0);
 
     useEffect(()=> {
+        console.log("Average rating 1",courseData?.data)
+        console.log("Average rating 2",courseData?.data?.courseDetails.ratingAndReviews)
         const count = GetAvgRating(courseData?.data?.courseDetails.ratingAndReviews);
+        console.log("Average rating of the course",count)
         setAverageReviewCount(count);
     },[courseData])
 
@@ -76,7 +79,7 @@ const CourseDetails = () => {
     }
 
 
-    if(!loading || !courseData){
+    if( !courseData){
         return (
             <Spinner/>
         )
@@ -98,7 +101,7 @@ const CourseDetails = () => {
         courseContent,
         ratingAndReviews,
         instructor,
-        studentsEnrolled,
+        studentEnrolled,
         createdAt,
     } = courseData.data?.courseDetails
 
@@ -122,8 +125,8 @@ const CourseDetails = () => {
             <div className=' flex gap-x-2'>
                 <span>{avgReviewCount}</span>
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} /> 
-                <span>{`(${ratingAndReviews.length} reviews)`}</span>
-                <span>{`(${studentsEnrolled.length} students enrolled)`}</span>
+                <span>{`${ratingAndReviews.length} reviews`}</span>
+                <span>{`${studentEnrolled.length} students enrolled`}</span>
             </div>
 
             <div>
@@ -162,14 +165,14 @@ const CourseDetails = () => {
 
             <div className=' flex gap-x-3 justify-between'>
                 <div>
-                    <span>{courseContent.length}</span>
+                    <span>{courseContent.length} sections</span>
 
                     <span>
                         {totalNoOfLectures} lectures
                     </span>
 
                     <span>
-                        {courseData.data?.totalDuration} total length
+                        {courseData.data?.totalDuration} total Duration
                     </span>
                 </div>
 

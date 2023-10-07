@@ -260,7 +260,7 @@ exports.getCourseDetails = async (req, res) => {
             //get id
             const {courseId} = req.body;
             //find course details
-            const courseDetails = await Course.find(
+            const courseDetails = await Course.findOne(
                                         {_id:courseId})
                                         .populate(
                                             {
@@ -272,14 +272,14 @@ exports.getCourseDetails = async (req, res) => {
                                         )
                                         .populate("category")
                                         // rating and review was commented before because it was giving a error
-                                        .populate("ratingAndreviews")
+                                        .populate( {path: 'ratingAndreviews', strictPopulate: false} )
                                         .populate({
                                             path:"courseContent",
                                             populate:{
                                                 path:"subSection",
                                                 select: "-videoUrl"
                                             },
-                                        })
+                                        }) 
                                         .exec();
 
             //validation
@@ -310,13 +310,26 @@ exports.getCourseDetails = async (req, res) => {
 
 
             //return response
+            // return res.status(200).json({
+            //     success:true,
+            //     data: {
+            //         courseDetails:courseDetails,
+            //         totalDuration: totalDuration,
+            //     },
+            //     message:"Course Details fetched successfully",                    data:courseDetails,
+            // })
+
+            const data = {
+                courseDetails: courseDetails,
+                totalDuration: totalDuration
+            }
+
+            console.log("The data I want to send", data)
+
             return res.status(200).json({
                 success:true,
-                data: {
-                    courseDetails,
-                    totalDuration,
-                },
-                message:"Course Details fetched successfully",                    data:courseDetails,
+                message: "Test ",
+                data
             })
     }
     catch(error) {

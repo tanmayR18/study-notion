@@ -47,7 +47,7 @@ export const fetchCourseDetails = async (courseId) => {
     let result = null
     try{
         const response = await apiConnector("POST", COURSE_DETAILS_API,{courseId})
-        console.log("COURSE_DETAILS_API", response)
+        console.log("COURSE_DETAILS_API__", response)
 
         if(!response.data.success){
             throw new Error(response.data.message)

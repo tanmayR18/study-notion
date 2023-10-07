@@ -5,7 +5,7 @@ import RenderTotalAmount from './RenderTotalAmount'
 
 const Cart = () => {
 
-    const { total, totalItems } = useSelector( state => state.auth)
+    const { total, totalItems } = useSelector( state => state.cart)
 
 
   return (

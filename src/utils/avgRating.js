@@ -1,4 +1,10 @@
 export default function GetAvgRating(ratingArr){
+
+    if(!ratingArr){
+        console.log("The rating Arr is null or undefined")
+        return
+    }
+
     if (ratingArr.length === 0 ) return 0
 
     const totalReviewCount = ratingArr?.reduce( (acc, curr) => {
