@@ -135,8 +135,8 @@ const Navbar = () => {
                             <AiOutlineShoppingCart size={20}/>
                             {
                                 totalItems > 0 && (
-                                    <span>
-                                        {totalItems}
+                                    <span className=' grid place-items-center animate-bounce absolute -top-1 -right-1 bg-yellow-100 text-richblack-900 w-4 h-4 rounded-full'>
+                                        <p className=' text-xs'>{totalItems}</p>
                                     </span>
                                 )
                             }
