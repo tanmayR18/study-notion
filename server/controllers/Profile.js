@@ -155,7 +155,12 @@ exports.getEnrolledCourses = async (req, res) => {
       const userDetails = await User.findOne({
         _id: userId,
       })
-        .populate("courses")
+        .populate({
+            path: "courses",
+            populate: {
+                path: "courseContent"
+            }
+        })
         .exec()
       if (!userDetails) {
         return res.status(400).json({
@@ -175,3 +180,39 @@ exports.getEnrolledCourses = async (req, res) => {
       })
     }
 };
+
+exports.instructorDashboard = async (req, res) => {
+    try{    
+        const courseDetails = await Course.find({ instructor: req.user.id})
+        
+        const courseData = courseDetails.map( course => {
+            const totalStudentsEnrolled = course.studentEnrolled.length
+            const totalAmountGenerated = totalStudentsEnrolled * course.price
+
+            //create a new object with additional field
+            const courseDataWithStats = {
+                _id: course.id,
+                courseName: course.courseName,
+                courseDescription: course.courseDescription,
+                totalStudentsEnrolled,
+                totalAmountGenerated
+            }
+
+            return courseDataWithStats
+        })
+
+        res.status(200).json({
+            success :true ,
+            courses: courseData,
+            message: "Instructors's course details fetched successfully"
+        })
+
+    } catch(error){
+        console.log(error)
+        res.status(500).json({
+            success:false,
+            error: error.message,
+            message: "Server error"
+        })
+    }
+}
