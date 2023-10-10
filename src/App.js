@@ -25,6 +25,8 @@ import EditCourse from "./components/core/Dashboard/EditCourse";
 import Catalog from "./pages/Catalog";
 import CourseDetails from "./pages/CourseDetails";
 import Instructor from "./components/core/Dashboard/Instructor";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 
 function App() { 
     const {user} = useSelector( state => state.profile)
@@ -72,16 +74,25 @@ function App() {
 
         </Route>
 
-
+        { console.log("Inside the routes")}
         {/* Video lectures section */}
-        <Route >
-            
+        <Route element = { <PrivateRoute><ViewCourse/></PrivateRoute>}>
+            {         
+                user?.accountType ===  ACCOUNT_TYPE.STUDENT && (
+                    <>
+                        <Route
+                            path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                            element={<VideoDetails />}
+                        />
+                    </>
+                )
+            }
         </Route>
 
         {/* 404 Error page */}
         <Route path="*" element = {<Error/>} />
         
-      </Routes>
+    </Routes>
     </div>
   );
 }

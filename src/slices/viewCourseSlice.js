@@ -1,7 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit")
 
 
-const initalState = {
+const initialState = {
     courseSectionData: [],
     courseEntireData: [],
     completedLectures: [],
