@@ -42,7 +42,7 @@ exports.addRating = async (req, res) => {
                                                 user:userId
                                             })
         //update course with this rating/review
-        const updatedCourseDetails = await Course.findByIdAndUpdate({
+        const updatedCourseDetails = await Course.findByIdAndUpdate(courseId, {
                                                 $push: {
                                                     ratingReview:ratingReview._id
                                                 }

@@ -1,5 +1,9 @@
 const Category = require('../models/Category')
 
+function getRandomInt(max){
+    return Math.floor(Math.random() * (max));
+}
+
 //create Category
 
 exports.createCategory = async (req,res) => {
@@ -58,24 +62,63 @@ exports.categoryPageDetails = async (req, res) => {
     try {
             //get categoryId
             const {categoryId} = req.body;
+            console.log("category id",categoryId)
             //get courses for specified categoryId
             //If the categories does not have any course then db will throw error for populating course
             const selectedCategory = await Category.findById(categoryId)
-                                            //.populate("courses")
-                                            //.exec();
-            //validation
+                                            .populate({
+                                                path: "course",
+                                                match: {status: "Published"},
+                                                populate: "ratingAndReviews",
+                                            })
+                                            .exec()
+
+            //Handle the case when the category is not found
+            //validation                        
             if(!selectedCategory) {
                 return res.status(404).json({
                     success:false,
-                    message:'Data Not Found',
+                    message:'category and their course not found Not Found',
                 });
             }
+
+
+            // Handle the case when there are no courses
+            if( selectedCategory.course.length === 0) {
+                console.log("No course founf for the selected category")
+                return res.status(404).json({
+                    success: false,
+                    message: "No course found for the selected categories."
+                })
+            }
+
             //get coursesfor different categories
-            const differentCategories = await Category.find({
+            const categoriesExpectSelected = await Category.find({
                                          _id: {$ne: categoryId},
                                          })
                                          //.populate("courses")
                                          //.exec();
+
+            let differentCategory = await Category.findOne(
+                categoriesExpectSelected[getRandomInt( categoriesExpectSelected.length)]._id
+            ).populate({
+                path: "course",
+                match: { status: "Published"}
+            }).exec()
+
+            const allCategories = await Category.find()
+                                                    .populate({
+                                                        path: "course",
+                                                        match: {status: "Published"},
+                                                        populate: {
+                                                            path: "instructor"
+                                                        }
+                                                    }).exec()
+            
+            const allCourses = allCategories.flatMap( category => category.course)
+            const mostSellingCourses = allCourses
+                                            .sort( (a,b) => b.sold - a.sold)
+                                            .slice(0,10)
 
             //get top 10 selling courses
             //HW - write it on your own
@@ -85,7 +128,8 @@ exports.categoryPageDetails = async (req, res) => {
                 success:true,
                 data: {
                     selectedCategory,
-                    differentCategories,
+                    differentCategory,
+                    mostSellingCourses
                 },
             });
 
@@ -94,7 +138,8 @@ exports.categoryPageDetails = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             success:false,
-            message:error.message,
+            message:"Unable to get cateogories pages",
+            error: error.message
         });
     }
 }

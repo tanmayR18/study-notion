@@ -9,6 +9,10 @@ const {
   createCourse,
   getAllCourses,
   getCourseDetails,
+  getFullCourseDetails,
+  editCourse,
+  getInstructorCourses,
+  deleteCourse,
   getTop10Courses
 } = require("../controllers/Course")
 
@@ -32,7 +36,7 @@ const {
   createSubSection,
   updateSubSection,
   deleteSubSection,
-} = require("../controllers/Subsection")
+} = require("../controllers/SubSection")
 
 // Rating Controllers Import
 const {
@@ -40,6 +44,11 @@ const {
   getAverageRating,
   getAllRating,
 } = require("../controllers/RatingAndReview")
+
+// Course progress controller
+const {
+    updateCourseProgress
+} = require("../controllers/CourseProgress")
 
 // Importing Middlewares
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
@@ -51,23 +60,33 @@ const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth"
 // Courses can Only be Created by Instructors
 router.post("/createCourse", auth, isInstructor, createCourse)
 //Add a Section to a Course
-router.post("/createSection", auth, isInstructor, createSection)
+router.post("/addSection", auth, isInstructor, createSection)
 // Update a Section
 router.post("/updateSection", auth, isInstructor, updateSection)
 // Delete a Section
-router.post("/deleteSection/:sectionId", auth, isInstructor, deleteSection)
+router.delete("/deleteSection", auth, isInstructor, deleteSection)
 // Edit Sub Section
 router.post("/updateSubSection", auth, isInstructor, updateSubSection)
 // Delete Sub Section
 router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 // Add a Sub Section to a Section
-router.post("/createSubSection", auth, isInstructor, createSubSection)
+router.post("/addSubSection", auth, isInstructor, createSubSection)
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
+// Get Details for a Specific Courses
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+// Edit Course routes
+router.post("/editCourse", auth, isInstructor, editCourse)
+// Get all Courses Under a Specific Instructor
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+// Delete a Course
+router.delete("/deleteCourse", deleteCourse)
 // Get the Top 10 selling courses
 router.get("/getTop10Courses",getTop10Courses)
+// Update course progress
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
@@ -81,7 +100,7 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // ********************************************************************************************************
 //                                      Rating and Review
 // ********************************************************************************************************
-router.post("/addRating", auth, isStudent, addRating)
+router.post("/createRating", auth, isStudent, addRating)
 router.get("/getAverageRating", getAverageRating)
 //here maybe some changes
 router.get("/getReviews", getAllRating)

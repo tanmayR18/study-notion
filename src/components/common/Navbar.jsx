@@ -61,7 +61,7 @@ const Navbar = () => {
     // }
 
   return (
-    <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700'>
+    <div className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname === "/" ? "" : "bg-richblack-800"}`}>
         <div className='flex w-11/12 max-w-maxContent items-center justify-between'>
             {/* Image */}
             <Link to={"/"}>
@@ -97,7 +97,7 @@ const Navbar = () => {
                                             {
                                                 subLinks.length ? (
                                                     subLinks.map( (subLink, index) => (
-                                                        <Link to={subLink.name.split(" ").join("-").toLowerCase()} key={index}>
+                                                        <Link to={"/catalog/" + subLink.name.split(" ").join("-").toLowerCase()} key={index}>
                                                             <p className=' hover:bg-richblack-25 rounded-md py-4 px-4 font-semibold'>{subLink.name}</p>
                                                         </Link>
                                                     ))
@@ -135,8 +135,8 @@ const Navbar = () => {
                             <AiOutlineShoppingCart size={20}/>
                             {
                                 totalItems > 0 && (
-                                    <span>
-                                        {totalItems}
+                                    <span className=' grid place-items-center animate-bounce absolute -top-1 -right-1 bg-yellow-100 text-richblack-900 w-4 h-4 rounded-full'>
+                                        <p className=' text-xs'>{totalItems}</p>
                                     </span>
                                 )
                             }

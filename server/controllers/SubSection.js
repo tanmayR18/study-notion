@@ -8,7 +8,8 @@ exports.createSubSection = async (req, res) => {
         //fetch the data from body
         const {sectionId, title, description} = req.body
         //extract file/video
-        const video = req.files.videoFile
+        const video = req.files.video
+        console.log("Video in file ", video)
         //validation
         if(!sectionId || !title || !description || !video) {
             return res.status(400).json({
@@ -36,9 +37,9 @@ exports.createSubSection = async (req, res) => {
         //HW: log updated section here, after adding populate query
         //return response
         return res.status(200).json({
-            succcess:true,
+            success:true,
             message:'Sub Section Created Successfully',
-            updatedSection,
+            data:updatedSection,
         });
     } catch(error){
         return res.status(500).json({
@@ -52,7 +53,7 @@ exports.createSubSection = async (req, res) => {
 //HW updateSubSection
 exports.updateSubSection = async (req, res) => {
     try {
-      const { subSectionId, title, description } = req.body
+      const { sectionId, subSectionId, title, description } = req.body
       const subSection = await SubSection.findById(subSectionId)
   
       if (!subSection) {
@@ -80,10 +81,13 @@ exports.updateSubSection = async (req, res) => {
       }
   
       await subSection.save()
+
+      const updatedSection = await Section.findById(sectionId).populate("subSection")
   
-      return res.json({
+      return res.status(200).json({
         success: true,
         message: "Section updated successfully",
+        data: updatedSection
       })
     } catch (error) {
       console.error(error)
@@ -100,6 +104,7 @@ exports.updateSubSection = async (req, res) => {
 exports.deleteSubSection = async (req, res) => {
     try {
       const { subSectionId, sectionId } = req.body
+      console.log("", subSectionId, sectionId)
       await Section.findByIdAndUpdate(
         { _id: sectionId },
         {
@@ -115,9 +120,12 @@ exports.deleteSubSection = async (req, res) => {
           .status(404)
           .json({ success: false, message: "SubSection not found" })
       }
+
+      const updatedSection = await Section.findById(sectionId).populate("subSection")
   
       return res.json({
         success: true,
+        data: updatedSection,
         message: "SubSection deleted successfully",
       })
     } catch (error) {

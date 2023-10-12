@@ -4,6 +4,7 @@ import {IoMdChatbubbles} from "react-icons/io"
 import {BsGlobeCentralSouthAsia, BsFillTelephoneFill} from "react-icons/bs"
 import ContactUsForm from '../components/ContactPage/ContactUsForm'
 import Footer from '../components/common/Footer'
+import ReviewSlider from '../components/common/ReviewSlider'
 
 const ContactUs = () => {
   return (
@@ -46,7 +47,11 @@ const ContactUs = () => {
             </div>
         </div>
 
-        {/* Review section */}
+        {/* Review Section */}
+        <div>
+                <h2 className=' text-center text-3xl font-bold text-white'>Review section</h2>
+                <ReviewSlider/>
+            </div>
 
         <Footer/>
     </div>
