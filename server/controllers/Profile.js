@@ -175,7 +175,7 @@ exports.getEnrolledCourses = async (req, res) => {
             for ( var j = 0; j < userDetails.courses[i].courseContent.length; j++){
                 totalDurationInSeconds += userDetails.courses[i].courseContent[
                     j
-                ].reduce( (acc, curr) => acc + parseInt(curr.timeDuration), 0)
+                ].subSection.reduce( (acc, curr) => acc + parseInt(curr.timeDuration), 0)
                 userDetails.courses[i].totalDuration = convertSecondsToDuration(totalDurationInSeconds)
                 SubSectionLength += 
                 userDetails.courses[i].courseContent[j].subSection.length
@@ -185,7 +185,7 @@ exports.getEnrolledCourses = async (req, res) => {
                 userId: userId,
             })
 
-            courseProgressCount = courseProgressCount?.completedVideos.length
+            courseProgressCount = courseProgressCount?.completeVideos.length
             if(SubSectionLength === 0){
                 userDetails.courses[i].progressPercentage = 100
             } else {
@@ -210,10 +210,11 @@ exports.getEnrolledCourses = async (req, res) => {
         data: userDetails.courses,
       })
     } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: error.message,
-      })
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        })
     }
 };
 

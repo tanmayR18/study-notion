@@ -6,6 +6,7 @@ import { useDropzone } from 'react-dropzone'
 import { useSelector } from 'react-redux'
 import { Player } from 'video-react'
 import { FiUploadCloud } from "react-icons/fi"
+import "video-react/dist/video-react.css"
 
 const Upload = ({
     name,

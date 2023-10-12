@@ -25,7 +25,7 @@ const CourseSlider = ({Courses}) => {
                     }}
                     navigation={true}
                     breakpoints={{
-                        1024:{slidesPerView:3,}
+                        1024:{slidesPerView:2,}
                     }}
                     
                 > 

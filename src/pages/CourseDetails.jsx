@@ -17,6 +17,7 @@ import { HiOutlineGlobeAlt } from "react-icons/hi"
 import Footer from '../components/common/Footer'
 import CourseAccordionBar from '../components/core/Course/CourseAccordionBar'
 import Markdown from 'react-markdown'
+import ReviewSlider from '../components/common/ReviewSlider'
 
 const CourseDetails = () => {
 
@@ -257,6 +258,12 @@ const CourseDetails = () => {
                 </p>
                 </div>
             </div>
+            </div>
+
+            {/* Review Section */}
+            <div>
+                <h2 className=' text-center text-3xl font-bold'>Review section</h2>
+                <ReviewSlider/>
             </div>
         </div>
         <Footer />

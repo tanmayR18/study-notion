@@ -9,6 +9,7 @@ import LearningGrid from '../components/core/AboutPage/LearningGrid'
 import ContactFormSection from '../components/core/AboutPage/ContactFormSection'
 import Footer from '../components/common/Footer'
 import FoundingStory from "../assets/Images/FoundingStory.png"
+import ReviewSlider from '../components/common/ReviewSlider'
 
 const Aboutus = () => {
   return (
@@ -80,12 +81,11 @@ const Aboutus = () => {
         <ContactFormSection/>
         </section>
 
-        <section>
-            <div>
-                Review from other learners
-                {/* Review Slider */}
+        {/* Review Section */}
+        <div>
+                <h2 className=' text-center text-3xl font-bold'>Review section</h2>
+                <ReviewSlider/>
             </div>
-        </section>
 
         <Footer/>
 
