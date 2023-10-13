@@ -37,14 +37,14 @@ const ExploreMore = () => {
         px-1 py-1 w-fit'>
             {
                 tabName.map( (element, index) => (
-                    <div className={`text-[16px] flex flex-row items-center gap-2
+                    <div className={`text-[14px] flex flex-row items-center gap-4
                     ${
                         currentTab === element ?
                         "bg-richblack-900 text-richblack-5 font-medium" :
                         "text-richblack-200"
                     }
                     rounded-full transition-all duration-200 cursor-pointer
-                    hover:text-richblack-5 px-7 py-2`
+                    hover:text-richblack-5 lg:px-7 lg:py-2 px-2 py-1`
                     }
                     // removed this => hover:bg-richblack-900
                     key={index}
@@ -58,7 +58,7 @@ const ExploreMore = () => {
 
         {/* <div className='lg:h-[150px]'></div> */}
         {/* course card ka group */}
-        <div className='flex flex-row gap-10 justify-between w-full translate-y-16'>
+        <div className='flex flex-col lg:flex-row   p-2 lg:p-0 gap-10 justify-between w-full lg:translate-y-16'>
             {
                 courses.map((element, index) => (
                     <CourseCard

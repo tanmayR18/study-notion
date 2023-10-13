@@ -31,8 +31,8 @@ const TimelineSection = () => {
     ]
   return (
     <div>
-        <div className='flex flex-row gap-15 items-center'>
-            <div className='w-[45%] flex flex-col gap-5'>
+        <div className='flex flex-col  lg:flex-row gap-10 lg:gap-0 items-center'>
+            <div className='lg:w-[45%]  w-full flex flex-col gap-10 lg:gap-5'>
                 {
                     timeline.map( (element, index) => (
                         <div className='flex flex-row gap-6' key={index}>
@@ -48,9 +48,9 @@ const TimelineSection = () => {
                 }
             </div>
 
-            <div className='relative z-20 shadow-2xl shadow-blue-500'>
+            <div className='relative z-20  shadow-blue-200 shadow-[0px_0px_30px_0px]'>
 
-                <div className=' w-full h-full absolute bg-white z-10 -bottom-5 -right-5 sha  shadow-blue-500'>
+                <div className=' lg:block hidden w-full h-full absolute  shadow-blue-200 shadow-[0px_0px_30px_0px] bg-white z-10 -bottom-5 -right-5'>
                     
                 </div>
                 
@@ -59,15 +59,15 @@ const TimelineSection = () => {
                 className='shadow-white object-cover h-fit relative z-20'
                 />
 
-                <div className=' absolute z-20 bg-caribbeangreen-700 flex flex-row text-white uppercase py-7
-                left-[50%] translate-x-[-50%] translate-y-[-50%]'>
-                    <div className='flex flex-row gap-5 items-center border-r border-caribbeangreen-300 px-7'>
-                        <p className='text-3xl font-bold'>10</p>
-                        <p className=' text-caribbeangreen-300 text-sm'>Years of Experience</p>
+                <div className=' absolute z-20 bg-caribbeangreen-700 flex gap-2 lg:flex-row flex-col text-white uppercase lg:py-7 md:py-7 py-1
+                left-[50%] translate-x-[-50%] lg:translate-y-[-50%] md:translate-y-[-50%] translate-y-[-40%]'>
+                    <div className='flex flex-row gap-5   lg:border-r border-caribbeangreen-300 px-7'>
+                        <p className='lg:text-3xl md:text-3xl text-base font-bold'>10</p>
+                        <p className=' text-caribbeangreen-300 lg:text-sm md:text-sm text-xs'>Years of Experience</p>
                     </div>
                     <div className='flex gap-5 items-center px-7'>
-                        <p className='text-3xl font-bold'>250</p>
-                        <p className=' text-caribbeangreen-300 text-sm'>Type of Courses</p>
+                        <p className='lg:text-3xl md:text-3xl text-base font-bold'>95</p>
+                        <p className=' text-caribbeangreen-300  lg:text-sm md:text-sm text-xs'>Type of Courses</p>
                     </div>
                 </div>
             </div>

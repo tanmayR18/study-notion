@@ -8,19 +8,19 @@ import { FaArrowRight } from 'react-icons/fa'
 const InstructionSection = () => {
   return (
     <div className='mt-16'>
-        <div className='flex flex-row gap-20 items-center'>
-            <div className='w-[50%] bg-white relative z-20'>
-                <div className=' bg-white h-full w-full z-10 absolute -left-5 -top-5'>
+        <div className='flex flex-col lg:flex-row gap-20 items-center'>
+            <div className='lg:w-[50%] bg-white relative z-20'>
+                <div className='hidden lg:block bg-white h-full w-full z-10 absolute -left-5 -top-5'>
 
                 </div>
                 <img 
                     src={Instructor}
                     alt='instructor'
-                    className='shawdow-white z-20 relative'
+                    // className='shadow-white shadow-[-20px_-20px_0_0] z-20 relative '
                 />
             </div>
-            <div className='w-[50%] flex flex-col gap-10'>
-                <div className='text-4xl font-semibold w-[50%]'>
+            <div className='lg:w-[50%] flex items-center lg:items-start  flex-col gap-10'>
+                <div className='text-4xl text-center lg:text-left font-semibold lg:w-[50%]'>
                     Become an
                     <HighlightText text={"Instructor"} direction={"bg-gradient-to-b"} gradient={" from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]"} />
                 </div>

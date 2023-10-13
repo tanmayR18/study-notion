@@ -14,7 +14,7 @@ const CourseCard = ({currentCard, setCurrentCard, cardData}) => {
         <div 
         className={` flex flex-col justify-between 
          h-full  relative ${cardData.heading === currentCard ? "bg-white text-richblack-900" : "bg-richblack-800 text-richblack-25"}`}>
-            <div className='flex flex-col gap-7 py-8 px-6'>
+            <div className='flex flex-col lg:gap-7 gap-2 py-8 px-6'>
                 <p className='text-[20px] font-bold'>{cardData.heading}</p>
                 <p className={` text-richblack-400 leading-6 text-[16px]`}>{cardData.description}</p>
             </div>
