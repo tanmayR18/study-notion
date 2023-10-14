@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {VscSignOut} from "react-icons/vsc"
+import {RxCross1} from "react-icons/rx"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Spinner from "../../common/Spinner"
@@ -7,8 +8,9 @@ import { sidebarLinks } from '../../../data/dashboard-links'
 import SidebarLink from './SidebarLink'
 import { logout } from '../../../services/operations/authAPI'
 import ConfirmationModal from '../../common/ConfirmationModal'
+import toast from 'react-hot-toast'
 
-const SideBar = () => {
+const SideBar = ({sideBar, setSideBar}) => {
 
     const {user, loading: profileLoading} = useSelector( state => state.profile)
     const {loading: authLoading} = useSelector( state => state.auth)
@@ -22,14 +24,22 @@ const SideBar = () => {
     }
   return (
     <>
-        <div className=' flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-richblack-700 bg-richblack-800 py-10'>
+        <div className={`flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-richblack-700 bg-richblack-800 py-10
+        ${sideBar ? " w-full lg:w-fit" : "w-0 opacity-0 hidden"} transition-[width] ease-linear duration-700
+        `}>
+            <button 
+            onClick={ () => setSideBar(false)}
+            className=' self-start ml-8 mb-8  text-richblack-300 text-xl'
+            >
+                <RxCross1 />
+            </button>
             <div className=' flex flex-col'>
                 {
                     sidebarLinks.map( link => {
                         {/* console.log(user.accountType,link) */}
                         if( link.type && user?.accountType !== link.type) return null
                         return (
-                            <SidebarLink key={link.id} link={link} iconName={link.icon}/>
+                            <SidebarLink setSideBar={setSideBar} key={link.id} link={link} iconName={link.icon}/>
                         )
                     })
                 }
@@ -37,7 +47,8 @@ const SideBar = () => {
 
             <div className=' mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-700'></div>
 
-            <div className=' flex flex-col'>
+            <div 
+            className=' flex flex-col'>
                 <SidebarLink
                     link={{name: "Settings", path:"/dashboard/settings"}}
                     iconName="VscSettingsGear"
@@ -45,6 +56,7 @@ const SideBar = () => {
                 <button
                     onClick={
                         () => {
+                            setSideBar(false)
                             setConfirmationModal({
                                 text1: "Are you sure?",
                                 text2: "You will be logged out of your account.",
