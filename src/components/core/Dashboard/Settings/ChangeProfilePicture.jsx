@@ -63,15 +63,15 @@ const ChangeProfilePicture = () => {
 
   return (
     <div>
-        <div className=' flex items-center justify-between rounded-md border[1px] border-richblack-700 bg-richblack-800 p-8  px-12 text-richblack-5'>
+        <div className=' flex items-center justify-between rounded-md border[1px] border-richblack-700 bg-richblack-800 lg:p-8 md:p-8 p-4 px-6 md:px-12 lg:px-12 text-richblack-5'>
             <div className=' flex items-center gap-x-4'>
                 <img 
                     src={previewSource || user?.image}
                     alt={`profile-${user?.firstName}`}
-                    className=' aspect-square w-[78px] rounded-full object-cover'
+                    className=' aspect-square lg:w-[78px] md:w-[78px] w-[40px] rounded-full object-cover'
                 />
                 <div className=' space-y-2'>
-                    <p>Change Profile Picture</p>
+                    <p className=' lg:text-base md:text-base text-sm'>Change Profile Picture</p>
                     <div className=' flex flow-row gap-3'>
                         <input 
                             type='file'
@@ -83,11 +83,12 @@ const ChangeProfilePicture = () => {
                         <button
                             onClick={handleClick}
                             disabled={loading}
-                            className=' cursor-pointer rounded-md bg-richblack-700 py-2 px-5 font-semibold text-richblack-5'
+                            className=' cursor-pointer rounded-md bg-richblack-700 lg:py-2 md:py-2 lg:px-5 md:px-5 px-2 py-1 font-semibold text-richblack-5'
                         >
                             Select
                         </button>
                         <IconBtn 
+                            customClasses={"px-2 py-2"}
                             disable={loading || !imageFile}
                             text={loading ? "Uploading..." : "Upload"}
                             onclick={handleFileUpload}

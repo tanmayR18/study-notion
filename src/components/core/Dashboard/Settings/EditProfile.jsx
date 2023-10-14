@@ -31,7 +31,7 @@ const EditProfile = () => {
     <div>
         <form onSubmit={handleSubmit(submitProfileForm)}>
             {/* Profile Information */}
-            <div className=' my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12'>
+            <div className=' my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 lg:p-8 md:p-8  lg:px-12 md:px-12 py-4 p-2'>
                 <h2 className=' text-lg font-semibold text-richblack-5'>
                     Profile Information
                 </h2>
@@ -202,7 +202,7 @@ const EditProfile = () => {
                 >
                     Cancel
                 </button>
-                <IconBtn type="submit" text="Save" />
+                <IconBtn customClasses={" px-5 py-2"} type="submit" text="Save" />
                 </div>
         </form>
     </div>
