@@ -10,7 +10,7 @@ const ContactUs = () => {
   return (
     <div>
         {/* Upper section */}
-        <div className=' text-white w-11/12 mx-auto py-24 flex flex-col gap-8  lg:flex-row justify-between'>
+        <div className=' text-white w-11/12 mx-auto lg:py-24 py-12 flex flex-col gap-8  lg:flex-row justify-between'>
             <div className=' flex flex-col gap-12 bg-richblack-800 h-fit p-6 w-full lg:w-5/12 items-start rounded-2xl'>
                 <div className=' flex gap-2'>
                     <IoMdChatbubbles size={25} className=' text-richblack-100' />
@@ -40,7 +40,7 @@ const ContactUs = () => {
                 </div>
             </div>
 
-            <div className='flex flex-col gap-2 p-12 border border-blue-700 rounded-2xl '>
+            <div className='flex flex-col gap-2 lg:p-12 p-5 border border-blue-700 rounded-2xl '>
                 <h1 className=' font-semibold text-[36px] text-richblack-5'>Got a Idea? We’ve got the skills. Let’s team up</h1>
                 <p className='mb-10 text-richblack-300'>Tall us more about yourself and what you’re got in mind.</p>
             <ContactUsForm/>
@@ -49,7 +49,7 @@ const ContactUs = () => {
 
         {/* Review Section */}
         <div>
-                <h2 className=' text-center text-3xl font-bold text-white'>Review section</h2>
+                <h2 className=' text-center lg:text-3xl text-xl font-bold text-white'>Review section</h2>
                 <ReviewSlider/>
             </div>
 

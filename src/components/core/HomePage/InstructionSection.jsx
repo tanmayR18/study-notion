@@ -16,7 +16,7 @@ const InstructionSection = () => {
                 <img 
                     src={Instructor}
                     alt='instructor'
-                    // className='shadow-white shadow-[-20px_-20px_0_0] z-20 relative '
+                    className='z-20 relative '
                 />
             </div>
             <div className='lg:w-[50%] flex items-center lg:items-start  flex-col gap-10'>
