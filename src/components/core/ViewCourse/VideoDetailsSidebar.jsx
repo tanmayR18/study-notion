@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { IoIosArrowBack } from "react-icons/io"
 import { BsChevronDown } from "react-icons/bs"
 import IconBtn from '../../common/IconBtn'
+import { getCompletedLectures } from '../../../services/operations/courseDetailsAPI'
+import { setCompletedLectures } from '../../../slices/viewCourseSlice'
 
 const VideoDetailsSidebar = ({setReviewModal}) => {
 
+    const { token } = useSelector(state => state.auth)
     const [ activeStatus, setActiveStatus ] = useState("") 
     const [ videoBarActive, setVideoBarActive ] = useState("")
     const navigate = useNavigate()
     const location = useLocation()
-    const { sectionId, subSectionId } = useParams()
+    const dispatch = useDispatch()
+    const { sectionId, subSectionId, courseId } = useParams()
     const {
         courseSectionData,
         courseEntireData,
@@ -20,7 +24,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
     } = useSelector( state => state.viewCourse)
 
     useEffect( () => {
-        ;( () => {
+        ;( async() => {
             if(!courseSectionData.length) return
             const currentSectionIndex = courseSectionData.findIndex(
                 data => data._id === sectionId
@@ -32,6 +36,12 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
 
             setActiveStatus(courseSectionData?.[currentSectionIndex]?._id)
             setVideoBarActive(activeSubSectionId)
+
+            //to check teh completed videos
+            const compltedLec = await getCompletedLectures(courseId, token)
+            console.log("completed LEC", compltedLec)
+            dispatch(setCompletedLectures(compltedLec))
+           
         })()
     },[courseSectionData, courseEntireData, location.pathname])
 
@@ -40,7 +50,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
         <div className=' flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-b-richblack-700 bg-richblack-800'>
             <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
                 <div className=' flex w-full items-center justify-between'>
-                    <div 
+                    <div   
                     onClick={() => {
                         navigate("/dashboard/enrolled-courses")
                     }}
@@ -114,6 +124,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
                                                     setVideoBarActive(topic._id)
                                                 }}
                                                 >
+                                                {console.log("Here is the completed lecture array ",completedLectures)}
                                                     <input 
                                                         type='checkbox'
                                                         checked ={completedLectures.includes(topic?._id)}

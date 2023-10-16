@@ -60,3 +60,39 @@ exports.updateCourseProgress = async(req, res) => {
     }
 
 }
+
+exports.getCompletedLectures = async(req, res) => {
+    try{
+        const courseId = req.body.courseId
+        console.log(req.body)
+        const userId = req.user.id
+
+        console.log("Here I am ", courseId ,userId)
+
+        // check whether the course progress exist or not
+        const courseProgress = await CourseProgress.findOne({courseID: courseId, userId: userId})
+
+        if(!courseProgress){
+            return res.status(404).json({
+                success: false,
+                message: "Unable to get course progress ",
+            })
+        }
+
+        console.log("inside courseprogress controller",courseProgress)
+
+        return res.status(200).json({
+            success: true,
+            data: courseProgress.completeVideos,
+            message: "Completed video array sent successfully"
+        })
+
+    } catch(error){
+        console.log("Error in getCompletedLectures",error)
+        return res.status(500).success({
+            success: false,
+            message: "Unable to get completed lectures",
+            error: error.message
+        })
+    }
+}
