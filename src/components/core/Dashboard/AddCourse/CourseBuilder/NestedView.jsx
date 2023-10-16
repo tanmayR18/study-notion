@@ -64,7 +64,7 @@ const NestedView = ({ handleChangedEditSectionName }) => {
                         <summary className='flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2'>
                             <div className=' flex items-center gap-x-3'>
                                 <RxDropdownMenu className = "text-2xl text-richblack-50" />
-                                <p className=' font-semibold text-richblack-50'>
+                                <p className=' font-semibold text-richblack-50 w-20 lg:w-48 overflow-x-clip'>
                                     {section.sectionName}
                                 </p>
                             </div>
@@ -110,7 +110,7 @@ const NestedView = ({ handleChangedEditSectionName }) => {
                                     >
                                         <div className="flex items-center gap-x-3 py-2 ">
                                             <RxDropdownMenu className="text-2xl text-richblack-50" />
-                                            <p className="font-semibold text-richblack-50">
+                                            <p className="font-semibold text-richblack-50 w-20 lg:w-48 overflow-x-clip">
                                             {data.title}
                                             </p>
                                         </div>

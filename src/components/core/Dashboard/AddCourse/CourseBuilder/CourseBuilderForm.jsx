@@ -87,7 +87,7 @@ const CourseBuilderForm = () => {
     }
 
   return (
-    <div className=' space-y-8 rounded-md border-[1px] border-richblack-700 p-6'>
+    <div className=' space-y-8 rounded-md border-[1px] border-richblack-700 p-3 md:p-6 lg:p-6'>
         <p className=' text-2xl font-semibold text-richblack-5'>Course Builder</p>
         <form onSubmit={handleSubmit(onSubmit)} className=' space-y-4'>
             <div className=' flex flex-col space-y-2'>
@@ -142,11 +142,12 @@ const CourseBuilderForm = () => {
         <div className=' flex justify-end gap-x-3'>
             <button 
                 onClick={goBack}
-                className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900`}
+                className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 px-2  lg:py-[8px] lg:px-[20px] font-semibold text-richblack-900`}
             >   
                 Back
             </button>
             <IconBtn 
+            customClasses={" font-semibold"}
                 disable={loading}
                 text={"Next"}
                 onclick={goToNext}

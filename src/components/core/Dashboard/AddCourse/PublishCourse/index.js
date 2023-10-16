@@ -71,14 +71,14 @@ const PublishCourse = () => {
     }
 
   return (
-    <div className=' rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6'>
+    <div className=' rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-3 md:p-6 lg:p-6 mb-10'>
         <p className=' text-2xl font-semibold text-richblack-5'>
             Public Settings
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
             {/* Checkbox */}
             <div className=' my-6 mb-8'>
-                <label htmlFor='public' className=' inline-flex items-center text-lg'>
+                <label htmlFor='public' className=' inline-flex items-center text-base md:text-lg lg:text-lg'>
                     <input 
                         type='checkbox'
                         id='public'
@@ -97,7 +97,7 @@ const PublishCourse = () => {
                     disabled = {loading}
                     type='button'
                     onClick={goBack}
-                    className=' flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-800'
+                    className=' flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 px-4 py-1 lg:py-[8px] lg:px-[20px] font-semibold text-richblack-800'
                 >
                     Back
                 </button>

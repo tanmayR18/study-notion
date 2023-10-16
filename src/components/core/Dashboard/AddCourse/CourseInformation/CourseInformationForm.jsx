@@ -151,7 +151,7 @@ const CourseInformationForm = () => {
   return (
     <form
     onSubmit={handleSubmit(onSubmit)}
-    className=' space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6'
+    className=' space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-3 md:p-6 lg:p-6'
     >   
         {/* Course Title */}
         <div className=' flex flex-col space-y-2'>
@@ -162,7 +162,7 @@ const CourseInformationForm = () => {
                 id='courseTitle'
                 placeholder='Enter Course Title'
                 {...register('courseTitle',{ required: true })}
-                className='form-style w-full'
+                className='form-style  w-full'
             />
             {
                 errors.courseTitle && (
