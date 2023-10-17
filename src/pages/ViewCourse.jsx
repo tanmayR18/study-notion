@@ -5,6 +5,7 @@ import { getFullDetailsOfCourse } from '../services/operations/courseDetailsAPI'
 import { setCompletedLectures, setCourseSectionData, setEntireCourseData, setTotalNoOfLectures } from '../slices/viewCourseSlice'
 import VideoDetailsSidebar from '../components/core/ViewCourse/VideoDetailsSidebar'
 import CourseReviewModal from '../components/core/ViewCourse/CourseReviewModal'
+import {AiOutlineArrowRight} from "react-icons/ai"
 
 const ViewCourse = () => {
 
@@ -12,6 +13,7 @@ const ViewCourse = () => {
     const { token } = useSelector( state => state.auth)
     const dispatch = useDispatch()
     const [ reviewModal, setReviewModal ] = useState(false)
+    const [ sideBar, setSideBar ] = useState(false)
 
     useEffect( () => {
         ;(async () => {
@@ -29,10 +31,16 @@ const ViewCourse = () => {
 
   return (
     <>
-        <div className=' relative flex min-h-[calc(100vh-3.5rem)]'>
-            <VideoDetailsSidebar setReviewModal = {setReviewModal} />
+        <div className=' relative flex flex-col lg:flex-row min-h-[calc(100vh-3.5rem)]'>
+            <VideoDetailsSidebar sideBar={sideBar} setSideBar={setSideBar} setReviewModal = {setReviewModal} />
+            <button 
+            className={` text-richblack-100 text-3xl pt-1 pl-5  mt-10  ${sideBar ? "hidden" : "self-start"} flex`}
+            onClick={() => setSideBar(true)}
+            >
+                <AiOutlineArrowRight />
+            </button>
             <div className=' h-[calc(100vh-3.5rem)] flex-1 overflow-auto'>
-                <div className=' mx-6'>
+                <div className={` ml-4 md:ml-6 lg:ml-6 ${sideBar ? "lg:block lg:pt-10 hidden w-0 lg:w-11/12" : "w-11/12 pt-10"}`}>
                     <Outlet/>
                 </div>
             </div>

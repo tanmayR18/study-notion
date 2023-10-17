@@ -7,7 +7,7 @@ import IconBtn from '../../common/IconBtn'
 import { getCompletedLectures } from '../../../services/operations/courseDetailsAPI'
 import { setCompletedLectures } from '../../../slices/viewCourseSlice'
 
-const VideoDetailsSidebar = ({setReviewModal}) => {
+const VideoDetailsSidebar = ({setReviewModal, sideBar, setSideBar}) => {
 
     const { token } = useSelector(state => state.auth)
     const [ activeStatus, setActiveStatus ] = useState("") 
@@ -47,7 +47,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
 
   return (
     <>
-        <div className=' flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-b-richblack-700 bg-richblack-800'>
+        <div className={`flex h-[calc(100vh-3.5rem)] lg:w-[320px] lg:max-w-[350px] flex-col border-r-[1px] border-b-richblack-700 bg-richblack-800  ${sideBar ? " w-full lg:w-fit" : "w-0 opacity-0 hidden"}`}>
             <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
                 <div className=' flex w-full items-center justify-between'>
                     <div   
@@ -61,10 +61,15 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
                     </div>
                     <IconBtn 
                         text="Add Review"
-                        customClasses= "ml-auto"
+                        customClasses= "ml-auto lg:text-lg md:text-lg text-sm"
                         onclick={ () => setReviewModal(true)}
                     />
                 </div>
+                <button
+                className=' text-richblack-100 border rounded-md px-4 py-1 self-end lg:text-lg md:text-lg text-sm' 
+                onClick={() => setSideBar(false)}>
+                    Hide
+                </button>
                 <div className=' flex flex-col'>
                     <p>{courseEntireData?.courseName}</p>
                     <p className=' text-sm font-semibold text-richblack-500'>
@@ -73,7 +78,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
                 </div>
             </div>
 
-            <div className=' h-[calc(100vh-5rem)] overflow-y-auto'>
+            <div className=' mt-5 h-[calc(100vh-5rem)] overflow-y-auto'>
                 {
                     courseSectionData.map( (section, index) => (
                         <div 
@@ -109,6 +114,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
                             {
                                 activeStatus === section?._id && (
                                     <div
+                                    onClick={() => setSideBar(false)}
                                     className=' transition-[height] duration-500 ease-in-out'
                                     >
                                         {

@@ -235,7 +235,7 @@ html, body{
   /* Swiper CSS Ends */
   
   .blackButton {
-    @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5;
+    @apply cursor-pointer rounded-md bg-richblack-800 lg:px-[20px] md:px-[20px] px-4 lg:py-[8px] md:py-[8px] py-2  font-semibold text-richblack-5;
   }
   .lable-style {
     @apply text-[14px] text-richblack-5;
