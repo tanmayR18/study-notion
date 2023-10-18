@@ -62,8 +62,9 @@ const Catalog = () => {
   return (
     loading ?
     <Spinner/> : 
-    <div className=' box-content w-full bg-richblack-800 px-4'>
-        <div className=' mx-auto flex min-h-[260px] max-w-maxContentTab flex-col justify-center gap-4 lg:max-w-maxContent'>
+    <div className=' px-4'>
+        <div className=' box-content w-full bg-richblack-800 px-4 lg:px-8 md:px-8 ml-[-16px]'>
+        <div className='flex min-h-[260px] max-w-maxContentTab flex-col justify-center gap-4 lg:max-w-maxContent'>
             <p className=' text-sm text-richblack-300'>
             Home / Catalog
             <span className=' to-yellow-25'>
@@ -76,7 +77,7 @@ const Catalog = () => {
 
         
             {/* Section1 */}
-            <div className='box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent '>
+            <div className='box-content w-full max-w-maxContentTab  py-12 lg:max-w-maxContent '>
                 <div className=' section_heading'>Courses to get you started</div>
                 <div className=' my-4 mr-4 flex border-b border-b-richblack-600 text-sm'>
                     <p
@@ -96,13 +97,13 @@ const Catalog = () => {
                     onClick={() => setActive(2)}
                     >New</p>
                 </div>
-                <div className=''>
+                <div className=' w-full'>
                     <CourseSlider Courses={catalogPageData?.data?.selectedCategory?.course} />
                 </div>
             </div>
 
             {/* section2 */}
-            <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+            <div className=" mx-auto box-content w-full max-w-maxContentTab py-12 lg:max-w-maxContent">
             <div className="section_heading">Top Courses in {catalogPageData?.data?.differentCategory?.name}</div>
                 <div className="py-8">
                     <CourseSlider Courses={catalogPageData?.data?.differentCategory?.course}/>
@@ -110,7 +111,7 @@ const Catalog = () => {
             </div>
 
             {/* section3 */}
-            <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+            <div className=" mx-auto box-content w-full max-w-maxContentTab  py-12  lg:max-w-maxContent">
                 <div className="section_heading">Frequently Bought</div>
                 <div className='py-8'>
 
@@ -119,16 +120,20 @@ const Catalog = () => {
                         {
                             catalogPageData?.data?.mostSellingCourses?.slice(0,4)
                             .map((course, index) => (
-                                <Course_Card course={course} key={index} Height={"h-[400px]"}/>
+                                <Course_Card course={course} key={index} Height={"lg:h-[400px] md:h-[400px] h-[200px]"}/>
                             ))
                         }
 
                     </div>
 
                 </div>
+
+                <Footer/>
             </div>
         
-        <Footer/>
+        
+    </div>
+    
     </div>
   )
 }

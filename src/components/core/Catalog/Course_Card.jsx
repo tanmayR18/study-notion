@@ -24,15 +24,15 @@ const Course_Card = ({course, Height}) => {
                     />
                 </div>
                 <div className=' flex flex-col gap-2 px-1 py-3'>
-                    <p className=' text-xl text-richblack-5 '>{course?.courseName}</p>
+                    <p className=' lg:text-xl md:text-xl text-base font-bold text-richblack-5 '>{course?.courseName}</p>
                     <p className=' text-sm text-richblack-50'>{course?.instructor?.firstName} {course?.instructor?.lastName}</p>
                     <div className=' flex flex-col gap-2'>
-                        <p className=' flex gap-4'>
+                        <p className=' flex gap-4 lg:text-base md:text-base text-sm'>
                             <span className="text-yellow-5">{avgReviewCount || 0}</span>
                             <RatingStars Review_Count={avgReviewCount} />
                             <span className="text-richblack-400">{course?.ratingAndReviews?.length} Ratings</span>
                         </p>
-                        <p className="text-xl text-richblack-5">₹ {course?.price}</p>
+                        <p className="lg:text-xl md:text-xl text-base text-richblack-5">₹ {course?.price}</p>
                     </div>
                 </div>
             </div>
