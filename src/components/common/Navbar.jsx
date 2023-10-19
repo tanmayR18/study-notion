@@ -11,6 +11,8 @@ import { useState } from 'react'
 import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/apis'
 import { AiOutlineMenu } from "react-icons/ai"
+import NavbarSideBar from './NavbarSideBar'
+import toast from 'react-hot-toast'
 
 
 // const subLinks = [
@@ -35,7 +37,10 @@ const Navbar = () => {
     const {user} = useSelector( (state) => state.profile)
     const {totalItems} = useSelector( (state) => state.cart)
     const [subLinks, setSubLinks] = useState([])
+    const [ open, setOpen] = useState(false)
     const [currentRoute, setCurrentRoute] = useState("")
+
+    const toggleSideBar = () => setOpen(prev => !prev)
 
     const fetchAllCategories = async () => {
         try{
@@ -110,7 +115,7 @@ const Navbar = () => {
                                         </div>
                                     ) :
                                     (
-                                        <Link to={link?.path}>
+                                        <Link  to={link?.path}>
                                             {/* <p className={`${matchRoute(link?.path) ? "text-yellow-25" : "text-richblack-25"}`}>
                                                 {link.title}
                                             </p> */}
@@ -166,9 +171,15 @@ const Navbar = () => {
                     token !== null && <ProfileDropDown/>
                 }
             </div>
-            <button className=' mr-4 md:hidden'>    
+            <button
+            onClick={toggleSideBar}
+            className=' mr-4 md:hidden'>    
                 <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
             </button>
+            
+            {
+                open && <NavbarSideBar  subLinks={subLinks} currentRoute = {currentRoute} setCurrentRoute = {setCurrentRoute} toggleSideBar = {toggleSideBar} />
+            }
         </div>
     </div>
   )
