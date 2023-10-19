@@ -34,6 +34,7 @@ const MyCourses = () => {
                 My Courses
             </h1>
             <IconBtn 
+                customClasses={"px-2 py-2"}
                 text={"Add Course"}
                 onclick={ () => navigate("/dashboard/add-course")}
             >

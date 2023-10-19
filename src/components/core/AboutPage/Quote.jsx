@@ -4,7 +4,7 @@ import {BiSolidQuoteLeft, BiSolidQuoteRight} from "react-icons/bi"
 
 const Quote = () => {
   return (
-    <div className=' py-20 mt-20 text-4xl w-10/12 mx-auto font-bold'>
+    <div className=' lg:py-20 py-10 lg:mt-20 mt-10 lg:text-4xl text-xl w-10/12 mx-auto font-bold'>
         <center className=''>
             <BiSolidQuoteLeft className=' text-richblack-600'/>
             We are passionate about revolutionizing the way we learn. Our innovative platform

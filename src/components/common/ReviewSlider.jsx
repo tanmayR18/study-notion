@@ -37,7 +37,7 @@ function ReviewSlider() {
   // console.log(reviews)
 
   return (
-    <div className="text-white">
+    <div className="text-white px-2">
          {/* max-w-maxContentTab was added below */}
       <div className="my-[50px] h-[184px] lg:max-w-maxContent mx-auto">
       <Swiper  
@@ -53,7 +53,7 @@ function ReviewSlider() {
             }}
             navigation={true}
             breakpoints={{
-                1024:{slidesPerView:2,}
+                1024:{slidesPerView:3,}
             }}
         > 
           {reviews.map((review, i) => {

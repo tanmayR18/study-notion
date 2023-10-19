@@ -15,11 +15,11 @@ const Cart = () => {
 
         {
             total > 0 ?
-            <div className=' mt-8 flex flex-col-reverse items-start gap-x-10 gap-y-6 lg:flex-row'>
+            <div className=' mt-8 flex flex-col-reverse items-start gap-x-10 gap-y-6 md:flex-row lg:flex-row'>
                 <RenderCartCourses/>
                 <RenderTotalAmount/>
             </div> :
-            <div className=' mt-14 text-3xl text-richblack-100 flex justify-center items-center'>
+            <div className=' my-14 text-3xl text-richblack-100 flex justify-center items-center'>
                 Your Cart is Empty
             </div>
         }

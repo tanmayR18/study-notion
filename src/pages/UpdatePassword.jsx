@@ -41,9 +41,9 @@ export const UpdatePassword = () => {
         {
             loading ?
             <Spinner/> : 
-
-            <div className=' flex justify-center h-[calc(100vh-56px)] items-center'>
-                <div className=' flex w-[30%] flex-col gap-3 justify-center  text-white'>
+            <div className=' flex justify-center  h-full items-center'>
+                {/* lg:h-[calc(100vh-56px)] md:h-[calc(100vh-56px)] has been removed*/}
+                <div className=' flex lg:w-[30%] md:w-[30%] w-[90%] my-10  flex-col gap-3 justify-center  text-white'>
                     <h1 className=' text-richblack-5 text-3xl font-semibold'>
                         {
                             passwordUpdated ? "Reset Complete!" : "Choose new Password"
@@ -105,8 +105,8 @@ export const UpdatePassword = () => {
                                 {
                                     passswordConditions.map( (conditions, index) => (
                                         <div key={index} className=' flex gap-1 text-caribbeangreen-300 items-center'>
-                                            <BsFillCheckCircleFill />
-                                            <p>{conditions}</p>
+                                            <BsFillCheckCircleFill className=' w-6' />
+                                            <p className=' w-full'>{conditions}</p>
                                         </div>
                                     ))
                                 }

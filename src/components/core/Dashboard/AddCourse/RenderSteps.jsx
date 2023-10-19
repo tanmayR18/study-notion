@@ -24,16 +24,12 @@ const RenderSteps = () => {
     ]
   return (
     <div>
-        <div className=' relative mb-2 flex w-full items-center justify-center'>
+        
+        <div className=' flex mb-10 justify-center'>
             {
                 steps.map( item => (
-                    <>
-                        <div 
-                        key={item.id}
-                        className=' flex flex-col items-center'
-                        
-                        >
-                            <button
+                    <div key={item.id} className='flex items-center'>
+                    <button
                             className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] 
                             ${
                                 step === item.id ?
@@ -51,12 +47,11 @@ const RenderSteps = () => {
                                         item.id
                                 }
                             </button>
-                        </div>
-                        {
+                            {
                             item.id !== step.length && item.id !== 3 && (
                                 <>
                                     <div 
-                                    className={`h-[clac(34px/2)]  w-[33%] border-dashed border-b-2
+                                    className={`h-[clac(34px/2)]  w-[6rem] lg:w-[12rem] md:[12rem] border-dashed border-b-2
                                     ${
                                         step > item.id ?
                                         " border-yellow-50 " :
@@ -68,18 +63,17 @@ const RenderSteps = () => {
                                 </>
                             )
                         }
-                    </>
+                    </div>
                 ))
             }
         </div>
 
-        <div className=' relative mb-16 flex w-full select-none justify-between'>
+        {/* <div className=' relative mb-16 gap-[2rem] flex w-full select-none justify-center'>
             {
                 steps.map( item => (
-                    <>
                         <div
                          key={item.id}
-                        className=' flex min-w-[130px] flex-col items-center gap-y-2'
+                        className=' flex items-center justify-center'
                         
                         >   
                             <p className={` text-sm
@@ -92,10 +86,9 @@ const RenderSteps = () => {
                                 {item.title}
                             </p>
                         </div>
-                    </>
                 ))
             }
-        </div>
+        </div> */}
         {/* Render specific component based on current step */}
         {step === 1 && <CourseInformationForm/>}
         {step === 2 && <CourseBuilderForm/>}

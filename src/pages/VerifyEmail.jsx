@@ -50,10 +50,10 @@ const VerifyEmail = () => {
             loading ?
             <Spinner />
             :
-            <div className=' flex justify-center items-center h-[calc(100vh-56px)]'>
-                <div className=' flex flex-col gap-4 w-[30%]'>
-                    <p className=' font-semibold text-3xl text-richblack-5'>Verify Email</p>
-                    <p className=' text-richblack-100 font-normal text-lg'>A verification code has been sent to you. Enter the code below</p>
+            <div className=' flex justify-center items-center min-h-[calc(100vh-56px)]'>
+                <div className=' flex flex-col gap-4 lg:w-[30%] md:w-[30%] w-[90%]'>
+                    <p className=' font-semibold lg:text-3xl md:text-3xl text-xl text-richblack-5'>Verify Email</p>
+                    <p className=' text-richblack-100 font-normal lg:text-lg md:text-lg text-base'>A verification code has been sent to you. Enter the code below</p>
                     <form className=' flex flex-col gap-4' onSubmit={submitHandler}>
                         <OTPInput 
                             value={otp}
@@ -65,12 +65,12 @@ const VerifyEmail = () => {
                             style={{
                                 boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
                             }}
-                            className='w-[48px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] font-bold text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50' />}
+                            className='w-[40px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] font-bold text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50' />}
                             containerStyle={" flex gap-2 justify-center"}
 
                         />
                         <button 
-                        className='rounded-[8px] bg-yellow-50 py-[8px] font-bold px-[12px] text-lg text-richblack-900'
+                        className='rounded-[8px] bg-yellow-50 lg:py-[8px] md:py-[8px] py-[4px] font-bold px-[12px] text-lg text-richblack-900'
                         >
                             Verify Email
                         </button>

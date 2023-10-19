@@ -27,7 +27,7 @@ const EnrolledCourse = () => {
 
   return (
     <div className=''>
-        <div className=' text-3xl text-richblack-100' >Enrolled Courses</div>
+        <div className=' text-3xl text-richblack-100 font-semibold mb-5' >Enrolled Courses</div>
         {
             !enrolledCourses ? 
             <Spinner/> : 
@@ -38,9 +38,9 @@ const EnrolledCourse = () => {
 
                 <div className='flex flex-col rounded-t-lg bg-richblack-500 '>
                     <div className=' flex  bg-richblack-700 text-richblack-50 text-sm font-medium p-4'>
-                        <p className='w-[45%] px-5 py-3'>Course Name</p>
-                        <p className='w-1/4 px-2 py-3'>Durations</p>
-                        <p className='flex-1 px-2 py-3'>Progress</p>
+                        <p className='lg:w-[45%] md:w-[45%] w-[35%] px-5 py-3'>Course Name</p>
+                        <p className='lg:w-1/4 md:lg:w-1/4 w-[30%] px-2 py-3'>Durations</p>
+                        <p className='flex-1 text-center px-2 py-3'>Progress</p>
                     </div>
                     {
                         enrolledCourses.map( (course, i, arr ) => (
@@ -51,7 +51,7 @@ const EnrolledCourse = () => {
                                 key={i}
                             >
                                 <div
-                                    className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
+                                    className="flex w-[45%] lg:flex-row flex-col  cursor-pointer items-center gap-4 px-5 py-3"
                                     onClick={() => {
                                         console.log("course section", course)
                                     navigate(
@@ -60,7 +60,7 @@ const EnrolledCourse = () => {
                                     }}
                                 >
                                     <img className=' h-14 w-14 rounded-lg object-cover' alt='course_img' src={course.thumbnail} />
-                                    <div className="flex max-w-xs flex-col gap-2">
+                                    <div className="flex max-w-xs flex-col lg:items-start items-center gap-2">
                                         <p className="font-semibold">{course.courseName}</p>
                                         <p className="text-xs text-richblack-300">{course.courseDescription}</p>
                                     </div>

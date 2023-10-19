@@ -62,12 +62,12 @@ exports.deleteAccount = async (req, res) => {
 			});  
 		}
 		// Delete Assosiated Profile with the User
-		await Profile.findByIdAndDelete({ _id: user.additionalDetails });
+		await Profile.findByIdAndDelete(user.additionalDetails);
 
         // TODO: Unenroll User From All the Enrolled Courses
         
         // Delete all the users rating and review
-        await RatingAndReview.findByIdAndDelete(id)
+        await RatingAndReview.deleteMany({user: id})
 
         // Unenroll user from all the courses
         if(user.courses.length > 10){

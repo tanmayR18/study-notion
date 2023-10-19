@@ -197,7 +197,7 @@ const VideoDetails = () => {
                                             disable={loading}
                                             onclick={() => handleLectureCompletion()}
                                             text={!loading ? "Marks as completed" : "Loading"}
-                                            customClasses=" text-xl max-w-max px-4 mx-auto"
+                                            customClasses="  lg:text-xl md:text-lg max-w-max md:py-0 lg:py-0 py-2 px-4 mx-auto "
                                         />
                                     )
                                 }
@@ -211,10 +211,10 @@ const VideoDetails = () => {
                                         }
                                     }}
                                     text="Rewatch"
-                                    customClasses="text-xl max-w-max px-4 mx-auto mt-2"
+                                    customClasses=" lg:text-xl md:text-lg max-w-max md:py-0 lg:py-0 py-2 px-4 mx-auto  mt-2"
                                 />
 
-                                <div className=' mt-10 flex min-w-[250px] justify-center gap-x-4 text-xl'>
+                                <div className=' mt-10 flex min-w-[250px] justify-center gap-x-4 lg:text-xl md:text-lg'>
                                     {
                                         !isFirstVideo() && (
                                             <button  

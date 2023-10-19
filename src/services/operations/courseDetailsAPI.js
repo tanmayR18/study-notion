@@ -21,6 +21,7 @@ const {
     GET_FULL_COURSE_DETAILS_AUTHENTICATED,
     CREATE_RATING_API,
     LECTURE_COMPLETION_API,
+    GET_COMPLETED_LECTURES_API
 } = courseEndpoints
 
 // get all the course 
@@ -341,10 +342,30 @@ export const markLectureAsCompleted = async(data, token) => {
         result = "true"
     } catch(error){
         console.log("MARK LECRTURE AS COMPLETE API API ERROR...", error)
-        toast.error(error.message)
+        toast.error("Lecture already completed")
     }   
     toast.dismiss(toastId)
     return  result
+}
+
+// get completed lectures
+export const getCompletedLectures = async(courseId, token) => {
+    const toastId = toast.loading("Loading")
+    try{
+        const response = await apiConnector("POST", GET_COMPLETED_LECTURES_API, {courseId} , {
+            Authorization: `Bearer ${token}`,
+        })
+        console.log("RESPONSE OF GET_COMPLETE_LECTURES_API", response)
+        toast.remove(toastId)
+        return response.data.data
+        
+    } catch(error){
+        console.log("GET COMPLETED LECTURES API ERROR",error)
+        toast.error("Couldn't get the completed lectures")
+        
+    }
+    toast.remove(toastId)
+    return []
 }
 
 // create a rating for a cousre

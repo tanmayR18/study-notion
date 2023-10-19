@@ -6,6 +6,7 @@ const SubSection = require("../models/SubSection")
 const {uploadImageToCloudinary} = require('../utils/imageUploader')
 const { convertSecondsToDuration } = require('../utils/secToDuration')
 const CourseProgress = require("../models/CourseProgress")
+const RatingAndReview = require('../models/RatingAndReview')
 
 
 // Function to create a course
@@ -272,7 +273,7 @@ exports.getCourseDetails = async (req, res) => {
                                         )
                                         .populate("category")
                                         // rating and review was commented before because it was giving a error
-                                        .populate( {path: 'ratingAndreviews', strictPopulate: false} )
+                                        .populate( {path: 'ratingAndReviews', strictPopulate: false} )
                                         .populate({
                                             path:"courseContent",
                                             populate:{
@@ -467,12 +468,15 @@ exports.deleteCourse = async(req, res) => {
             if(section){
                 const subSection = section.subSection
                 for(const subSectionId of subSection){
-                    await SubSection.findByIdAndUpdate(subSectionId)
+                    await SubSection.findByIdAndDelete(subSectionId)
                 }
             }
             //Delete the section
             await Section.findByIdAndDelete(sectionId)
         }
+
+        //delete the rating of the course
+        await RatingAndReview.deleteMany({course: courseId})
 
         // Delete the course 
         await Course.findByIdAndDelete(courseId)

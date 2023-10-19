@@ -47,7 +47,8 @@ const {
 
 // Course progress controller
 const {
-    updateCourseProgress
+    updateCourseProgress,
+    getCompletedLectures 
 } = require("../controllers/CourseProgress")
 
 // Importing Middlewares
@@ -87,6 +88,9 @@ router.delete("/deleteCourse", deleteCourse)
 router.get("/getTop10Courses",getTop10Courses)
 // Update course progress
 router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
+// get completed lectures
+router.post("/getCompletedLectures", auth, isStudent, getCompletedLectures)
+
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

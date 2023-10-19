@@ -53,8 +53,8 @@ const Instructor = () => {
             loading ? (
                 <Spinner/>
             ) : courses.length > 0 ? (
-                <div>
-                    <div className=' my-4 flex h-[600px] space-x-4'>
+                <div className=' '>
+                    <div className=' my-4 flex lg:flex-row  gap-10  flex-col h-[600px] lg:space-x-4'>
                         {/* Render chart / graph */}
                         {
                             totalAmount > 0 || totalStudents > 0 ? (
@@ -95,7 +95,7 @@ const Instructor = () => {
                         </div>
                     </div>
 
-                    <div className=' rounded-md bg-richblack-800 p-6'>
+                    <div className=' mt-[100px] lg:mt-0  rounded-md bg-richblack-800 p-6'>
                         {/* Render 3 courses */}
                         <div className=' flex items-center justify-between'>
                             <p className=' text-lg font-bold text-richblack-5 '>
@@ -105,14 +105,14 @@ const Instructor = () => {
                                 <p className='text-xs font-semibold text-yellow-50'>View all</p>
                             </Link>
                         </div>
-                        <div className=' my-4 flex items-start space-x-6'>
+                        <div className=' my-4 flex lg:flex-row md:flex-row flex-col items-start gap-6 lg:space-x-6 md:space-x-6'>
                             {
                                 courses.slice(0,3).map( course => (
-                                    <div key={course._id} className=' w-1/3'>
+                                    <div key={course._id} className=' lg:w-1/3'>
                                         <img 
                                             src={course.thumbnail}
                                             alt={course.coursName}
-                                            className=' h-[201px] w-full rounded-md object-cover' 
+                                            className='h-[201px] w-full rounded-md object-cover' 
                                         />
                                         <div className=' mt-3 w-full'>
                                             <p className=' text-sm font-medium text-richblack-50'>
