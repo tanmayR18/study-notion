@@ -52,9 +52,9 @@ const CourseDetails = () => {
 
     useEffect(()=> {
         // console.log("Average rating 1",courseData?.data)
-        // console.log("Average rating 2",courseData?.data?.courseDetails.ratingAndReviews)
+        console.log("Average rating 2",courseData?.data?.courseDetails.ratingAndReviews)
         const count = GetAvgRating(courseData?.data?.courseDetails.ratingAndReviews);
-        // console.log("Average rating of the course",count)
+        console.log("Average rating of the course",count)
         setAverageReviewCount(count);
     },[courseData])
 

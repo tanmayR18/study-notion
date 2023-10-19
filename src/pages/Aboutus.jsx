@@ -22,7 +22,7 @@ const Aboutus = () => {
                     Driving Innovation in Online Education for a
                     <HighlightText text={"Brighter Future"} direction={"bg-gradient-to-b"} gradient={" from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]"} />
                 </header>
-                <p className=' lg:w-2/3 text-richblack-300'><center>Studynotion is at the forefront of driving innovation in online education. We're passionate about creating a brighter future by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant learning community.</center></p>
+                <center className=' lg:w-2/3 text-richblack-300'>Studynotion is at the forefront of driving innovation in online education. We're passionate about creating a brighter future by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant learning community.</center>
                 <div className='grid lg:grid-cols-3 grid-cols-1 md:grid-cols-3 gap-6 mx-auto lg:mt-0 mt-10 lg:translate-y-14'>
                     <img alt=''  src={BannerImage1} />
                     <img alt='' src={BannerImage2} />

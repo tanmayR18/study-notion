@@ -49,7 +49,7 @@ const VideoDetailsSidebar = ({setReviewModal, sideBar, setSideBar}) => {
     <>
         <div className={`flex h-[calc(100vh-3.5rem)] lg:w-[320px] lg:max-w-[350px] flex-col border-r-[1px] border-b-richblack-700 bg-richblack-800  ${sideBar ? " w-full lg:w-fit" : "w-0 opacity-0 hidden"}`}>
             <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
-                <div className=' flex w-full items-center justify-between'>
+                <div className=' flex w-full items-center gap-4 justify-between'>
                     <div   
                     onClick={() => {
                         navigate("/dashboard/enrolled-courses")

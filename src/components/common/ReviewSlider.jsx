@@ -53,7 +53,7 @@ function ReviewSlider() {
             }}
             navigation={true}
             breakpoints={{
-                1024:{slidesPerView:2,}
+                1024:{slidesPerView:3,}
             }}
         > 
           {reviews.map((review, i) => {

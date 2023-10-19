@@ -5,6 +5,7 @@ import {RiDeleteBin6Line} from "react-icons/ri"
 import {AiOutlineStar, AiFillStar} from "react-icons/ai"
 import {removeFromCart} from "../../../../slices/cartSlice"
 import { compose } from '@reduxjs/toolkit';
+import GetAvgRating from '../../../../utils/avgRating';
 
 
 const RenderCartCourses = () => {
@@ -31,14 +32,15 @@ const RenderCartCourses = () => {
                         <div className=' flex flex-col space-y-1'>
                             <p className=' text-lg font-medium text-richblack-5'>{course?.courseName}</p>
                             <p className=' text-sm text-richblack-300'>{course?.category?.name}</p>
-                            { console.log(course)}
-                            <div className=' flex lg:items-center md:items-center flex-col gap-2'>
-                                <span className=' text-yellow-5'>4.8</span>
+                            { console.log("Cart ke course",course)}
+                            <div className=' flex  flex-col gap-2'>
+                                <span className=' text-yellow-5'>{GetAvgRating(course.ratingAndReviews)}</span>
                                 <ReactStars 
                                     count={5}
+                                    value={GetAvgRating(course.ratingAndReviews)}
                                     size={20}
                                     edit={false}
-                                    activeColor={"##ffd700"}
+                                    activeColor={"#ffd700"}
                                     emptyIcon={<AiOutlineStar/>}
                                     filledIcon={<AiFillStar/>}
                                 />
