@@ -1,5 +1,5 @@
 import React from 'react'
-import ContactFormSection from '../components/core/AboutPage/ContactFormSection'
+// import ContactFormSection from '../components/core/AboutPage/ContactFormSection'
 import {IoMdChatbubbles} from "react-icons/io"
 import {BsGlobeCentralSouthAsia, BsFillTelephoneFill} from "react-icons/bs"
 import ContactUsForm from '../components/ContactPage/ContactUsForm'
