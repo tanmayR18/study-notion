@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { apiConnector } from '../services/apiconnector';
 import { categories } from '../services/apis';
 import { getCatalogPageData } from '../services/operations/pageAndComponentData';
-import CourseSlice from '../slices/courseSlice';
+// import CourseSlice from '../slices/courseSlice';
 import CourseSlider from '../components/core/Catalog/CourseSlider';
 import Footer from '../components/common/Footer';
 import Course_Card from "../components/core/Catalog/Course_Card"

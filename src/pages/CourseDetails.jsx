@@ -23,8 +23,8 @@ const CourseDetails = () => {
 
     const { user } = useSelector(state => state.profile)
     const { token } = useSelector( state => state.auth)
-    const { loading } = useSelector( state => state.profile)
-    const { paymentLoading } = useSelector( state => state.course)
+    // const { loading } = useSelector( state => state.profile)
+    // const { paymentLoading } = useSelector( state => state.course)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { courseId } = useParams()
