@@ -26,14 +26,14 @@ const ForgotPassword = () => {
             loading ?
             <Spinner/>
             :
-            <div className={` flex justify-center h-[calc(100vh-56px)] ${loading ? "bg-caribbeangreen-400": ""} items-center`}>
-                <div className=' text-white w-[30%]  flex flex-col gap-3 justify-center'>
-                    <h1 className=' font-bold text-3xl text-richblack-5'>
+            <div className={` flex justify-center md:h-[calc(100vh-56px)] lg:h-[calc(100vh-56px)] ${loading ? "bg-caribbeangreen-400": ""} items-center`}>
+                <div className=' text-white lg:w-[30%] md:w-[30%] w-[90%] mt-16 lg:mt-0 md:mt-0  flex flex-col gap-3 justify-center'>
+                    <h1 className=' font-bold lg:text-3xl md:text-3xl text-xl text-richblack-5'>
                         {
                             emailSent ? "Check Your Email" : "Reset your Password "
                         }
                     </h1>
-                    <p className=' text-richblack-100 font-normal text-lg'>
+                    <p className=' text-richblack-100 font-normal lg:text-lg md:text-lg text-base'>
                         {
                             emailSent ?
                             `We have sent the reset email to ${email}` :
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
                         }
 
                         <button
-                        className='rounded-[8px] bg-yellow-50 py-[8px] font-bold px-[12px] text-lg text-richblack-900' 
+                        className='rounded-[8px] bg-yellow-50 lg:py-[8px] md:py-[8px] py-[4px] lg:font-bold md:font-bold font-normal px-[12px] text-lg text-richblack-900' 
                         type='submit'>
                         {
                             emailSent ?
