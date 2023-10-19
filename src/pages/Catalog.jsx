@@ -103,7 +103,7 @@ const Catalog = () => {
             </div>
 
             {/* section2 */}
-            <div className=" mx-auto box-content w-full max-w-maxContentTab py-12 lg:max-w-maxContent ml-[-16px]">
+            <div className="box-content w-full max-w-maxContentTab py-12 lg:max-w-maxContent md:ml-[-30px] lg:ml-[-30px]">
             <div className="section_heading">Top Courses in {catalogPageData?.data?.differentCategory?.name}</div>
                 <div className="py-8">
                     <CourseSlider Courses={catalogPageData?.data?.differentCategory?.course}/>
@@ -111,7 +111,7 @@ const Catalog = () => {
             </div>
 
             {/* section3 */}
-            <div className=" mx-auto box-content w-full max-w-maxContentTab  py-12  lg:max-w-maxContent  ml-[-16px]">
+            <div className="box-content w-full max-w-maxContentTab  py-12  lg:max-w-maxContent md:ml-[-30px] lg:ml-[-30px]">
                 <div className="section_heading">Frequently Bought</div>
                 <div className='py-8'>
 

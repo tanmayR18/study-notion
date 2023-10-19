@@ -23,7 +23,9 @@ const NavbarSideBar = ({ toggleSideBar, setCurrentRoute, currentRoute, subLinks 
                 <ul className='flex flex-col gap-6 text-richblack-25'>
                     {
                         NavbarLinks.map( (link, index) => (
-                            <li className=' border-b border-richblack-400 pb-2' key={index}>
+                            <motion.li 
+                            {...framerText(index)}
+                            className=' border-b border-richblack-400 pb-2' key={index}>
                                 {
                                     link.title === "Catalog" ? 
                                     (
@@ -68,14 +70,16 @@ const NavbarSideBar = ({ toggleSideBar, setCurrentRoute, currentRoute, subLinks 
                                         </Link>
                                     )
                                 }
-                            </li>
+                            </motion.li>
                         ))
                     }
                 </ul>
             </div>
-            <div className='mt-4 flex justify-end  text-sm' onClick={() => toggleSideBar()}>
+            <motion.div
+            {...framerText(6)}
+            className='mt-4 flex justify-end  text-sm' onClick={() => toggleSideBar()}>
                     <p className=' bg-richblack-500 px-3 py-1'>Close</p>
-            </div>
+            </motion.div>
         </motion.div>
     </motion.div>
   )
@@ -88,11 +92,21 @@ const framerSidebarBackground = {
     transition: { duration: 0.3 },
   }
   
-  const framerSidebarPanel = {
+const framerSidebarPanel = {
     initial: { x: '100%' },
     animate: { x: 0 },
     exit: { x: '100%' },
     transition: { duration: 0.3 },
-  }
+}
+
+const framerText = delay => {
+    return {
+      initial: { opacity: 0, x: +50 },
+      animate: { opacity: 1, x: 0 },
+      transition: {
+        delay: 0.5 + delay / 10,
+      },
+    }
+}
 
 export default NavbarSideBar
