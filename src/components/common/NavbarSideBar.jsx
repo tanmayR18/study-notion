@@ -4,10 +4,17 @@ import { NavbarLinks } from '../../data/navbar-links'
 import {RiArrowDropDownLine} from "react-icons/ri"
 import { useClickAway } from 'react-use'
 import { AnimatePresence, motion } from 'framer-motion'
+import { logout } from '../../services/operations/authAPI'
+import { useDispatch, useSelector} from "react-redux"
+import { useNavigate } from "react-router-dom"
+
 
 const NavbarSideBar = ({ toggleSideBar, setCurrentRoute, currentRoute, subLinks }) => {
 
     const ref = useRef(null)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { user } = useSelector((state) => state.profile)
     useClickAway( ref, () => toggleSideBar())
 
 
@@ -75,8 +82,22 @@ const NavbarSideBar = ({ toggleSideBar, setCurrentRoute, currentRoute, subLinks 
                     }
                 </ul>
             </div>
+
+            {
+                user && 
+                <motion.div
+                {...framerText(6)}
+                className='mt-4 flex justify-end  text-sm' onClick={() =>{
+                    toggleSideBar()
+                    dispatch(logout(navigate))
+                    
+                }}>
+                        <p className=' bg-richblack-500 px-3 py-1'>Log out</p>
+                </motion.div>
+            }
+
             <motion.div
-            {...framerText(6)}
+            {...framerText(7)}
             className='mt-4 flex justify-end  text-sm' onClick={() => toggleSideBar()}>
                     <p className=' bg-richblack-500 px-3 py-1'>Close</p>
             </motion.div>
