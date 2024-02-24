@@ -42,6 +42,55 @@ https://github.com/tanmayR18/study-notion/assets/135257857/31ea31c0-4864-43b0-a1
 - Verification and acknowledge using OTP
 - Validated Forms 
 
+## Run Locally
+
+- Clone the project in your local device 
+- Open the project in your favourite code editor
+- Open terminal and add the following commands  
+        1. `npm i` or `npm install`  
+        2. `npm run dev`  
+        
+- Get and add the environment variable given below
+- The project will be automatically open in your default browser on the localhost:3000
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+**Frontend:**
+
+`REACT_APP_BASE_URL` - Eg: http://localhost:4000/api/v1
+
+`REACT_APP_RAZORPAY_KEY` - from your razorpay demo account 
+
+**Backend:**
+
+`MAIL_HOST` - from nodemailer
+
+`MAIL_USER` - from nodemailer
+
+`MAIL_PASS` - from nodemailer
+
+`JWT_SECRET` - any word
+
+`RAZORPAY_KEY` - from  RazorPay Account
+
+`RAZORPAY_SECRET` -  from RazorPay Account
+
+`CLOUD_NAME` - from cloudinary
+
+`API_KEY` - from cloudinary
+
+`API_SECRET` - from cloudinary
+
+`FOLDER_NAME` - any folder name 
+
+`DATABASE_URL` - Mongodb url
+
+`PORT` - any port number expect 3000
+
+
 
 ## Deployment
 
@@ -50,5 +99,5 @@ Frontend - Vercel: https://study-notion-18.vercel.app/
 Backend - Render
 
 
-Note: There are times when server is not running on the render due to which the database does not connect. In such times just hit the backend api link on the other ( It is not a good practise but that the only way to run it while using free tier )
+Note: Due to use of free tier of Backend service from render.com there is delay in the reponse for the first request from the render as the server is not running all the time.
 
